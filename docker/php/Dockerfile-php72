@@ -1,0 +1,13 @@
+# Este script é executado quando a imagem é gerada
+
+FROM php:7.2-fpm
+
+# Os headers para libpng são necessários para compilar o gd
+RUN apt-get update -y && apt-get install -y libpng-dev
+
+# Compila e instala as extensões necessárias
+RUN docker-php-ext-install mysqli pdo_mysql gd mbstring zip
+
+# RUN docker-php-ext-enable gd
+
+

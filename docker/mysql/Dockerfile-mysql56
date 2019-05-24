@@ -1,0 +1,3 @@
+# Este script é executado quando a imagem é gerada
+FROM mysql:5.6
+

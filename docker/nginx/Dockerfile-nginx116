@@ -1,0 +1,5 @@
+# Este script é executado quando a imagem é gerada
+
+FROM nginx:1.16
+
+

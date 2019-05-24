@@ -1,0 +1,87 @@
+version: "3" 
+services:
+
+  # Camada de persistencia
+  # https://hub.docker.com/_/mysql
+  mysql:
+    container_name: database
+    build:
+      context: ./docker/mysql
+      # dockerfile: Dockerfile-mysql80
+      # dockerfile: Dockerfile-mysql57
+      # dockerfile: Dockerfile-mysql56
+      dockerfile: Dockerfile-mysql55
+    volumes:
+      - "db_data:/var/lib/mysql"
+      - ./docker/mysql/mysql.cnf:/etc/mysql/my.cnf
+      # qualquer aquivo dentro de /docker-entrypoint-initdb.d será 
+      # executado automaticamente na criação do container
+      - "./docker/mysql/db:/docker-entrypoint-initdb.d"
+    ports:
+      - "3306:3306"
+      # para mapear para outra porta 
+      # - "4321:3306"
+    environment:
+      - MYSQL_PORT=3306
+      - MYSQL_ROOT_PASSWORD=secret
+      - MYSQL_DATABASE=app_database
+      - MYSQL_USER=dbuser
+      - MYSQL_PASSWORD=secret
+    networks:
+      - container-network
+
+  # Camada da aplicação
+  # https://hub.docker.com/_/php
+  php:
+    container_name: app
+    build:
+      context: ./docker/php
+      # dockerfile: Dockerfile-php73
+      # dockerfile: Dockerfile-php72
+      # dockerfile: Dockerfile-php71
+      dockerfile: Dockerfile-php70
+      # dockerfile: Dockerfile-php56
+    volumes:
+      - ".:/var/www/html"
+      - "./docker/php/php.ini:/usr/local/etc/php/conf.d/local.ini"
+      - "./docker/scripts/boot-laravel.sh:/usr/local/bin/boot-laravel"
+    ports:
+      - "9000:9000"
+    depends_on:
+      - mysql
+    #environment:
+    #   - DB_NAME=app_database
+    #   - DB_USER=root
+    #   - DB_PASS=secret
+    networks:
+      - container-network
+      
+  # Camada do Web server
+  # https://hub.docker.com/_/nginx/
+  nginx:
+    container_name: webserver
+    build:
+      context: ./docker/nginx
+      #dockerfile: Dockerfile-nginx116
+      dockerfile: Dockerfile-nginx115
+    volumes:
+      - "./:/var/www/html"
+      - "./docker/nginx/nginx.conf:/etc/nginx/nginx.conf"
+    ports:
+      - "80:80"
+      # para mapear para outra porta 
+      # - "1234:80"
+    depends_on:
+      - php
+    networks:
+      - container-network
+
+# Docker Volumes
+volumes:
+  db_data:
+    driver: local
+
+# Docker Networks
+networks:
+  container-network:
+    driver: bridge
