@@ -2,12 +2,95 @@
 
 FROM php:7.3-fpm
 
-# Os headers para libpng são necessários para compilar o gd
-RUN apt-get update -y && apt-get install -y libpng-dev
+#----------------------------------------------
+# EXTENSÕES
+# Marcasdas com * podem ser instaladas manualmente
+#----------------------------------------------
 
-# Compila e instala as extensões necessárias
-RUN docker-php-ext-install mysqli pdo_mysql gd mbstring zip
+# ctype
+# curl
+# date
+# dom
+# fileinfo
+# filter
+# ftp
+# gd *
+# hash
+# iconv
+# json
+# libxml
+# mbstring 
+# mysqli
+# mysqlnd
+# openssl
+# pcre
+# PDO
+# pdo_firebird *
+# pdo_informix *
+# pdo_mssql *
+# pdo_mysql *
+# pdo_oci *
+# pdo_oci8 *
+# pdo_odbc *
+# pdo_pgsql *
+# pdo_sqlite
+# Phar
+# posix
+# readline
+# Reflection
+# session
+# SimpleXML
+# SPL
+# sqlite3
+# standard
+# tokenizer
+# xml
+# xmlreader
+# xmlwriter
+# zip *
+# zlib
 
-# RUN docker-php-ext-enable gd
+#----------------------------------------------
+# DEPENDENCIAS
+#----------------------------------------------
+RUN apt-get update;
+
+# GD
+RUN apt-get install -y libfreetype6-dev;
+RUN apt-get install -y libjpeg62-turbo-dev;
+RUN apt-get install -y libpng-dev;
+
+# MCRYPT
+# A partir do php 7.2, a extensão mcrypt foi removida
+
+# POSTGRES
+RUN apt-get install -y libpq-dev;
+
+#----------------------------------------------
+# BIBLIOTECAS
+#----------------------------------------------
+
+# GD
+RUN docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/;
+RUN docker-php-ext-install -j$(nproc) gd;
+
+# MCRYPT
+# A partir do php 7.2, a extensão mcrypt foi removida
+
+# MYSQL
+RUN docker-php-ext-install -j$(nproc) mysqli;
+
+# PDO
+# RUN docker-php-ext-install -j$(nproc) pdo_firebird;
+# RUN docker-php-ext-install -j$(nproc) pdo_informix;
+# RUN docker-php-ext-install -j$(nproc) pdo_mssql;
+RUN docker-php-ext-install -j$(nproc) pdo_mysql;
+# RUN docker-php-ext-install -j$(nproc) pdo_oci;
+# RUN docker-php-ext-install -j$(nproc) pdo_oci8;
+# RUN docker-php-ext-install -j$(nproc) pdo_odbc;
+RUN docker-php-ext-install -j$(nproc) pdo_pgsql;
+
+# ZIP
+RUN docker-php-ext-install -j$(nproc) zip;
 
 
