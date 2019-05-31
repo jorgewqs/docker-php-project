@@ -37,10 +37,10 @@ services:
     build:
       context: ./docker/php
       # dockerfile: Dockerfile-php73
-      # dockerfile: Dockerfile-php72
+      dockerfile: Dockerfile-php72
       # dockerfile: Dockerfile-php71
       # dockerfile: Dockerfile-php70
-      dockerfile: Dockerfile-php56
+      # dockerfile: Dockerfile-php56
     volumes:
       - ".:/var/www/html"
       - "./docker/php/php.ini:/usr/local/etc/php/conf.d/local.ini"
@@ -50,6 +50,8 @@ services:
     depends_on:
       - mysql
     #environment:
+    #   - DB_HOST=database
+    #   - DB_PREFIX=database
     #   - DB_NAME=app_database
     #   - DB_USER=root
     #   - DB_PASS=secret
