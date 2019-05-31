@@ -56,12 +56,17 @@ if [ ! -f '/var/www/html/.env' ]; then
     echo -e "Criando o arquivo .env: ${GREEN}[Ok]${NORMAL}";
 
     # extrai as informações do docker-compose.yml
+    YML_HOST=$(awk -F "=" '/MYSQL_HOST/ {print $2}' /var/www/html/docker-compose.yml);
     YML_PORT=$(awk -F "=" '/MYSQL_PORT/ {print $2}' /var/www/html/docker-compose.yml);
     YML_DATABASE=$(awk -F "=" '/MYSQL_DATABASE/ {print $2}' /var/www/html/docker-compose.yml);
     YML_USERNAME=$(awk -F "=" '/MYSQL_USER/ {print $2}' /var/www/html/docker-compose.yml);
     YML_PASSWORD=$(awk -F "=" '/MYSQL_PASSWORD/ {print $2}' /var/www/html/docker-compose.yml);
 
     # aplica no .env
+
+    sed -i "/^DB_HOST=/s/=.*/=$YML_HOST/" .env
+    echo -e "Setando DB_HOST: ${YELLOW}$YML_HOST${NORMAL}";
+
     sed -i "/^DB_PORT=/s/=.*/=$YML_PORT/" .env
     echo -e "Setando DB_PORT: ${YELLOW}$YML_PORT${NORMAL}";
 
