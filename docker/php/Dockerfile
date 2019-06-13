@@ -14,8 +14,8 @@ RUN usermod -u 999 www-data && groupmod -g 999 www-data;
 ##############################################
 
 
-# EXIF
-RUN docker-php-ext-install -j$(nproc) exif;
+# BCMATH
+RUN docker-php-ext-install -j$(nproc) bcmath;
 
 
 # GD
@@ -26,29 +26,8 @@ RUN docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-di
 RUN docker-php-ext-install -j$(nproc) gd;
 
 
-# GETTEXT
-RUN docker-php-ext-install -j$(nproc) gettext;
-
-
-# GMP
-RUN apt-get install -y libgmp-dev;
-RUN ln -s /usr/include/x86_64-linux-gnu/gmp.h /usr/include/gmp.h;
-RUN docker-php-ext-install -j$(nproc) gmp;
-
-
 # PDO MYSQL
-RUN docker-php-ext-install -j$(nproc) mysqli; 
 RUN docker-php-ext-install -j$(nproc) pdo_mysql;
-
-
-# RECODE
-RUN apt-get install -y librecode0 librecode-dev;
-RUN docker-php-ext-install -j$(nproc) recode;
-
-
-# ZIP
-RUN apt-get install -y zlib1g-dev libzip-dev;
-RUN docker-php-ext-install -j$(nproc) zip;
 
 
 ##############################################
@@ -63,12 +42,12 @@ RUN php composer-setup.php --install-dir=/usr/local/bin --filename=composer
 RUN php -r "unlink('composer-setup.php');"
 
 
-# NODEJS
-RUN apt-get install -y nodejs --no-install-recommends;
-
-
 # MYSQL CLIENT
 RUN apt-get install -y mysql-client;
+
+
+# NODEJS
+RUN apt-get install -y nodejs --no-install-recommends;
 
 
 ##############################################
