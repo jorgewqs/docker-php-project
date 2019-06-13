@@ -1,7 +1,19 @@
 <?php 
 
-// Este script gera um arquivo Dockerfile de acordo com as especificações
-// de configuração
+/*
+ * Autor: Ricardo Pereira <contato@ricardopdias.com.br>
+ * Site: https://www.ricardopdias.com.br
+ * 
+ * Este script gera um arquivo Dockerfile de acordo com as especificações
+ * de configuração fornecidas na linha de comando.
+ * 
+ * Por exemplo, para usar o arquivo de configuração 'image-config.ini' 
+ * e gerar um arquivo chamado 'MeuDockerfile':
+ * 
+ * $ cd docker/php
+ * $ php build-dockerfile.php -c image-config.ini -o MeuDockerfile
+ * 
+ */
 
 include 'cli-functions.php';
 
@@ -160,6 +172,12 @@ if (isset($config['extensions']) == true) {
             if ($version > 56 && $module == 'pdo-mssql') {
                 cli_step('skip', "Módulo $module");
                 cli_message('warning', "A partir do PHP 7.0, a extensão mssql foi depreciada e não está mais disponivel!");
+                continue;
+            }
+
+            if ($version > 56 && $module == 'mysql') {
+                cli_step('skip', "Módulo $module");
+                cli_message('warning', "A partir do PHP 7.0, a extensão mysql foi depreciada e não está mais disponivel!");
                 continue;
             }
 

@@ -1,7 +1,12 @@
 <?php 
 
-// Este script gera um arquivo Dockerfile de acordo com as especificações
-// de configuração
+/*
+ * Autor: Ricardo Pereira <contato@ricardopdias.com.br>
+ * Site: https://www.ricardopdias.com.br
+ * 
+ * Este arquivo inclui as funções para trabalhar com terminal nos 
+ * scripts escritos com PHP
+ */
 
 /**
  * Libera uma mensagem para o terminal
