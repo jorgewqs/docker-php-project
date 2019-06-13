@@ -39,93 +39,104 @@ Na configuração padrão, ao rodar o **docker-compose up** na raíz do template
 - mysql:8.0
 - php:7.3-fpm
 
+As seguintes versões são suportadas pelo template:
+
+Componente | Versão
+-------| -------------
+nginx  | 1.15 e 1.16
+mysql  | 5.5, 5.6, 5.7 e 8
+php    | 5.6, 7.0, 7.1, 7.2 e 7.3
+
 O PHP está preparado para utilizar um imenso número de extensões de 
 maneira muito fácil, controladas por um arquivo de configuração chamado **image-config.ini**. 
-Abaixo, a lista de extensões atualmente suportadas e seu status na configuração padrão:
+Abaixo, a lista de extensões atualmente suportadas e seu status na configuração padrão. As extensões com status "Nativa" não são configuráveis, pois acompanham a instalação padrão do PHP e com status "Instalável" são opcionais.
 
-Status | Extensão
--------| -------------
-x      | acl
-x      | bcmath
-x      | bz2
-x      | calendar
-OK     | ctype
-OK     | curl
-x      | dba
-x      | dba
-x      | date 
-x      | dom 
-x      | enchant
-OK     | exif
-x      | ereg 
-x      | fileinfo 
-x      | filter 
-x      | ftp 
-OK     | gd
-OK     | gettext
-OK     | gmp
-x      | hash 
-x      | iconv 
-x      | imap
-x      | json 
-x      | ldap
-x      | libxml 
-x      | mbstring 
-x      | mhash 
-x      | mcrypt
-x      | mysqli 
-x      | mysqlnd
-x      | oci8
-x      | odbc
-x      | opcache
-x      | openssl 
-x      | pcre 
-x      | pcntl
-x      | pdo
-x      | pdo_dblib
-x      | pdo_firebird
-OK     | pdo_mysql
-x      | pdo_oci
-x      | pdo_odbc
-x      | pdo_pgsql
-x      | pdo_sqlite
-x      | pgsql
-x      | phar 
-x      | posix 
-x      | pspell
-x      | readline 
-OK     | recode
-x      | reflection 
-x      | session 
-x      | shmop
-x      | simplexml 
-x      | spl 
-x      | sqlite3 
-x      | standard 
-x      | sybase_ct
-x      | sysvmsg
-x      | sysvsem
-x      | sysvshm
-x      | tidy
-x      | tokenizer 
-x      | wddx
-x      | xml 
-x      | xmlreader 
-x      | xmlrpc
-x      | xmlwriter 
-x      | xsl
-OK     | zip
-x      | zlib 
+Status | Extensão    | Tipo
+-------| ----------- | -------
+x      | acl         | Instalável
+OK     | bcmath      | Instalável
+x      | bz2         | Instalável
+x      | calendar    | Instalável
+OK     | ctype       | Nativa
+OK     | curl        | Nativa
+x      | dba         | Instalável 
+x      | dba         | Instalável
+OK     | date        | Nativa 
+OK     | dom         | Nativa
+x      | enchant     | Instalável
+x      | exif        | Instalável
+x      | ereg        | Instalável
+OK     | fileinfo    | Nativa
+OK     | filter      | Nativa
+OK     | ftp         | Nativa
+OK     | gd          | Instalável
+x      | gettext     | Instalável
+x      | gmp         | Instalável
+OK     | hash        | Nativa
+OK     | iconv       | Nativa
+x      | imagick     | Instalável 
+x      | imap        | Instalável
+OK     | json        | Nativa
+x      | ldap        | Instalável
+OK     | libxml      | Nativa
+OK     | mbstring    | Nativa 
+x      | mhash       | Instalável
+x      | mcrypt      | Instalável
+x      | mysqli      | Instalável
+OK     | mysqlnd     | Nativa
+x      | oci8        | Instalável
+x      | odbc        | Instalável
+x      | opcache     | Instalável 
+OK     | openssl     | Nativa
+OK     | pcre        | Nativa
+x      | pcntl       | Instalável
+OK     | pdo         | Nativa
+x      | pdo_dblib   | Instalável
+x      | pdo_firebird | Instalável
+OK     | pdo_mysql   | Instalável
+x      | pdo_oci     | Instalável
+x      | pdo_odbc    | Instalável
+x      | pdo_pgsql   | Instalável
+OK     | pdo_sqlite  | Nativa
+x      | pgsql       | Instalável
+OK     | phar        | Nativa
+OK     | posix       | Nativa
+x      | pspell      | Instalável
+OK     | readline    | Nativa
+x      | recode      | Instalável
+OK     | reflection  | Nativa
+OK     | session     | Nativa
+x      | shmop       | Instalável
+OK     | simplexml   | Nativa
+OK     | sodium      | Nativa
+OK     | spl         | Nativa
+OK     | sqlite3     | Nativa
+OK     | standard    | Nativa
+x      | sybase_ct   | Instalável
+x      | sysvmsg     | Instalável
+x      | sysvsem     | Instalável
+x      | sysvshm     | Instalável
+x      | tidy        | Instalável
+OK     | tokenizer   | Nativa
+x      | wddx        | Instalável
+OK     | xml         | Nativa
+OK     | xmlreader   | Nativa
+x      | xmlrpc      | Instalável
+OK     | xmlwriter   | Nativa
+x      | xsl         | Instalável
+x      | zip         | Instalável
+OK     | zlib        | Nativa
 
 
 As seguintes ferramentas também estão disponíveis para configuração: 
 
-Status | Ferramenta
--------| -------------
-OK     | composer
-OK     | mysql-client
-OK     | nodejs
-x      | supervisor
+Status | Ferramenta   | Tipo
+-------| -------------|
+OK     | composer     | Opcional
+x      | git          | Opcional
+OK     | mysql-client | Opcional
+OK     | nodejs       | Opcional
+x      | supervisor   | Opcional
 
 
 # Refinando as configurações
@@ -163,7 +174,7 @@ Após a configuração desejada, é preciso executar o script **build-dockerfile
 
 ```
 $ cd docker/php
-$ php build-dockerfile.php 
+$ php build-dockerfile.php -c image-config.ini -o Dockerfile
 ```
 
 Após a execução, o arquivo **docker/php/Dockerfile** do PHP será atualizado de acordo com as necessidades específicas do desenvolvedor e poderá ser executado normalmente com **docker-compose up**.
