@@ -1,5 +1,23 @@
 <?php
 
+/*
+ * Autor: Ricardo Pereira <contato@ricardopdias.com.br>
+ * Site: https://www.ricardopdias.com.br
+ * 
+ * Este script efetua o processo de build para cada extensão do PHP de 
+ * forma sequencial e separada para detectar falhas de compilação.
+ * 
+ * Caso um erro seja detectado ele será reportado ao término da 
+ * execução de todas as compilações.
+ * 
+ * Para usar é preciso especificar a versão do PHP a ser testada 
+ * como argumento do programa:
+ * 
+ * $ cd docker/php
+ * $ php run-tests.php 5.6
+ * 
+ */
+
 include 'cli-functions.php';
 
 if (isset($argv[1]) == false) {
@@ -78,6 +96,8 @@ cli_exec("sudo docker-compose down");
 cli_exec("sudo docker system prune -a");
 
 
+$success = [];
+$skips = [];
 $errors = [];
 
 // Compila as imagens para cada extensão/ferramenta
@@ -111,6 +131,12 @@ foreach($files as $name =>  $item) {
 
     // Se o item for pulado, não faz sentido compilar a imagem
     if (strpos($result['output'], 'PULAR') !== false) {
+
+        $skips[] = [
+            'name' => $name,
+            'message' => $result['output']
+        ];
+
         cli_message('default', "");
         cli_exec("rm -f {$config_file}");
         cli_exec("rm -f {$docker_file}");
@@ -129,6 +155,11 @@ foreach($files as $name =>  $item) {
 
     } elseif(strpos($response['output'], 'Successfully built') !== false) {
 
+        $success[] = [
+            'name' => $name,
+            'message' => "PHP com $name compilado com sucesso"
+        ];
+
         cli_message('success', "-----------------------------------------------");
         cli_message('success', "");
         cli_message('success', "PHP com $name compilado com sucesso");
@@ -143,6 +174,28 @@ foreach($files as $name =>  $item) {
 }
 
 cli_exec("rmdir {$tests_path}");
+
+if (count($skips)>0) {
+
+    cli_message('info', "-----------------------------------------------");
+    cli_message('info', "");
+    cli_message('info', "Os seguintes componentes foram pulados:");
+    cli_message('info', "");
+
+    $count = 1;
+    foreach($skips as $item) {
+
+        $name = $item['name'];
+        $message = $item['message'];
+        cli_message('info', "-----------------------------------------------");
+        cli_message('info', "$count) Ao instalar $name:");
+        cli_message('info', "-----------------------------------------------");
+        // Remove a coloração original das mensagens
+        cli_message('default', preg_replace('/[[:cntrl:]]\[[0-9]{1,3}m/','', $message));
+        $count++;
+    }
+
+}
 
 if (count($errors)>0) {
 
@@ -164,6 +217,7 @@ if (count($errors)>0) {
         cli_message('default', preg_replace('/[[:cntrl:]]\[[0-9]{1,3}m/','', $message));
         $count++;
     }
+
 } else {
 
     cli_message('success', "-----------------------------------------------");
@@ -171,9 +225,20 @@ if (count($errors)>0) {
     cli_message('success', "PARABÉNS!");
     cli_message('success', "Parece que tudo foi compilado com sucesso :)");
     cli_message('success', "");
-    cli_message('success', "-----------------------------------------------");
 }
 
+if (count($success)>0) {
 
+    cli_message('success', "-----------------------------------------------");
+    cli_message('success', "Instalados e compilados com sucesso:");
+    cli_message('success', "-----------------------------------------------");
 
+    foreach($success as $item) {
+        $name = $item['name'];
+        $message = $item['message'];
+        cli_step('success', "$name");
+    }
+
+    cli_message('success', "-----------------------------------------------");
+}
 
