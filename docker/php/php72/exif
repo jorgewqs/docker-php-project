@@ -1,0 +1,3 @@
+
+# EXIF
+RUN docker-php-ext-install -j$(nproc) exif;

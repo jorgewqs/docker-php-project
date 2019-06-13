@@ -1,0 +1,4 @@
+
+# XSL
+RUN apt-get install -y libxslt-dev;
+RUN docker-php-ext-install -j$(nproc) xsl;

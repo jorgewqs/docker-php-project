@@ -1,0 +1,3 @@
+
+# SYSVMSG
+RUN docker-php-ext-install -j$(nproc) sysvmsg;

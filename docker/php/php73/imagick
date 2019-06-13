@@ -1,0 +1,5 @@
+
+# IMAGICK (WARNING: Nesta configuração, o magickwand instala vários pacotes desnecessários!!)
+RUN apt-get install -y libmagickwand-dev --no-install-recommends;
+RUN pecl install imagick;
+RUN docker-php-ext-enable imagick;

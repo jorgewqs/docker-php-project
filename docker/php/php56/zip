@@ -1,0 +1,4 @@
+
+# ZIP
+RUN apt-get install -y zlib1g-dev libzip-dev;
+RUN docker-php-ext-install -j$(nproc) zip;

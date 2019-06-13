@@ -1,0 +1,3 @@
+
+# GETTEXT
+RUN docker-php-ext-install -j$(nproc) gettext;

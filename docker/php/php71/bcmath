@@ -1,0 +1,3 @@
+
+# BCMATH
+RUN docker-php-ext-install -j$(nproc) bcmath;

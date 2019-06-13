@@ -1,0 +1,4 @@
+
+# WDDX (TODO)
+# !! ainda não funciona corretamente!!
+# RUN docker-php-ext-install -j$(nproc) wddx;

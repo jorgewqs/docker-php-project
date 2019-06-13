@@ -1,0 +1,3 @@
+
+# NODEJS
+RUN apt-get install -y nodejs --no-install-recommends;

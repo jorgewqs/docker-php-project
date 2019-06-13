@@ -1,0 +1,4 @@
+
+# PDO PGSQL
+RUN apt-get install -y libpq-dev;
+RUN docker-php-ext-install -j$(nproc) pdo_pgsql;

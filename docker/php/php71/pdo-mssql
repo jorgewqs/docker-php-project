@@ -1,0 +1,3 @@
+
+# PDO MSSQL
+RUN docker-php-ext-install -j$(nproc) mssql;

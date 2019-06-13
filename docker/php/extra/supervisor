@@ -1,0 +1,6 @@
+
+# SUPERVISOR
+RUN apt-get install -y supervisor --no-install-recommends;
+RUN rm -r /var/lib/apt/lists/*;
+COPY config/supervisor/supervisord.conf /etc/supervisor/conf.d/
+COPY config/supervisor/kill_supervisor.py /usr/bin/
