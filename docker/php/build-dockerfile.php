@@ -144,9 +144,9 @@ append_string("##############################################");
 
 append_string("RUN apt-get update;");
 
-append_string("");
-append_string("# Muda o UID e o GID do usuario www-data para obter os privilégios do host");
-append_string("RUN usermod -u 999 www-data && groupmod -g 999 www-data;");
+// append_string("");
+// append_string("# Muda o UID e o GID do usuario www-data para obter os privilégios do host");
+// append_string("RUN usermod -u 999 www-data && groupmod -g 999 www-data;");
 
 
 
