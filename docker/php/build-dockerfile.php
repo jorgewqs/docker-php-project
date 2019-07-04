@@ -245,6 +245,7 @@ append_string("");
 
 append_string("RUN rm -rf /var/lib/apt/lists/*;");
 append_string("RUN apt-get autoremove -y;");
+append_string("ENV LANG C.UTF-8"); // Adiciona suporte a acentos
 
 // append_string("COPY docker-entrypoint.sh /docker-entrypoint.sh");
 // append_string('ENTRYPOINT ["/docker-entrypoint.sh"]');

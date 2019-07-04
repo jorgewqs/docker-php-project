@@ -56,3 +56,4 @@ RUN apt-get install -y nodejs --no-install-recommends;
 
 RUN rm -rf /var/lib/apt/lists/*;
 RUN apt-get autoremove -y;
+ENV LANG C.UTF-8
