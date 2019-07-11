@@ -144,11 +144,9 @@ append_string("##############################################");
 
 append_string("RUN apt-get update;");
 
-// append_string("");
-// append_string("# Muda o UID e o GID do usuario www-data para obter os privilégios do host");
-// append_string("RUN usermod -u 999 www-data && groupmod -g 999 www-data;");
-
-
+append_string("");
+append_string("# Para corrigir as mensagens de interface do Debian");
+append_string("ARG DEBIAN_FRONTEND=noninteractive");
 
 // EXTENSÕES
 if (isset($config['extensions']) == true) {
@@ -239,6 +237,19 @@ if (isset($config['extra']) == true) {
 
 append_string("");
 append_string("##############################################");
+append_string("# Outras configurações");
+append_string("##############################################");
+append_string("");
+append_string("RUN mkdir /sessions;"); 
+append_string("RUN chmod 777 /sessions;");
+append_string("RUN mkdir -p /var/nginx/client_body_temp;");
+append_string("RUN chmod 777 /sessions;");
+
+append_string("");
+append_string("RUN usermod -u 1000 www-data;");
+
+append_string("");
+append_string("##############################################");
 append_string("# Limpeza final");
 append_string("##############################################");
 append_string("");
@@ -246,6 +257,8 @@ append_string("");
 append_string("RUN rm -rf /var/lib/apt/lists/*;");
 append_string("RUN apt-get autoremove -y;");
 append_string("ENV LANG C.UTF-8"); // Adiciona suporte a acentos
+
+append_string("EXPOSE 9000"); // levanta a porta do fastcgi
 
 // append_string("COPY docker-entrypoint.sh /docker-entrypoint.sh");
 // append_string('ENTRYPOINT ["/docker-entrypoint.sh"]');

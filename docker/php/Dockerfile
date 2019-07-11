@@ -6,8 +6,8 @@ FROM php:7.3-fpm
 ##############################################
 RUN apt-get update;
 
-# Muda o UID e o GID do usuario www-data para obter os privilégios do host
-RUN usermod -u 999 www-data && groupmod -g 999 www-data;
+# Para corrigir as mensagens de interface do Debian
+ARG DEBIAN_FRONTEND=noninteractive
 
 ##############################################
 # Módulos do PHP
@@ -51,9 +51,21 @@ RUN apt-get install -y nodejs --no-install-recommends;
 
 
 ##############################################
+# Outras configurações
+##############################################
+
+RUN mkdir /sessions;
+RUN chmod 777 /sessions;
+RUN mkdir -p /var/nginx/client_body_temp;
+RUN chmod 777 /sessions;
+
+RUN usermod -u 1000 www-data;
+
+##############################################
 # Limpeza final
 ##############################################
 
 RUN rm -rf /var/lib/apt/lists/*;
 RUN apt-get autoremove -y;
 ENV LANG C.UTF-8
+EXPOSE 9000
