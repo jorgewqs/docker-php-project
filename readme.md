@@ -36,7 +36,7 @@ Diretório              | Descrição
 Na configuração padrão, ao rodar o **docker-compose up** na raíz do template, os seguintes componentes serão levantados:
 
 - nginx:1.16
-- mysql:8.0
+- mysql:5.7
 - php:7.3-fpm
 
 As seguintes versões são suportadas pelo template:
@@ -131,7 +131,7 @@ OK     | zlib        | Nativa
 As seguintes ferramentas também estão disponíveis para configuração: 
 
 Status | Ferramenta   | Tipo
--------| -------------|
+-------| -------------|----------
 OK     | composer     | Opcional
 x      | git          | Opcional
 OK     | mysql-client | Opcional
