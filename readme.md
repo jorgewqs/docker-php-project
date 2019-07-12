@@ -49,7 +49,9 @@ php    | 5.6, 7.0, 7.1, 7.2 e 7.3
 
 O PHP está preparado para utilizar um imenso número de extensões de 
 maneira muito fácil, controladas por um arquivo de configuração chamado **image-config.ini**. 
-Abaixo, a lista de extensões atualmente suportadas e seu status na configuração padrão. As extensões com status "Nativa" não são configuráveis, pois acompanham a instalação padrão do PHP e com status "Instalável" são opcionais.
+Abaixo, a lista de extensões atualmente suportadas e seus status na configuração padrão. 
+As extensões com status "Nativa" não são configuráveis, pois acompanham a instalação padrão do PHP e com status "Instalável" são opcionais.
+Os status "OK", são instalados por padrão e "x" podem ser ativadas no arquivo **image-config.ini**.
 
 Status | Extensão    | Tipo
 -------| ----------- | -------
@@ -133,7 +135,7 @@ As seguintes ferramentas também estão disponíveis para configuração:
 Status | Ferramenta   | Tipo
 -------| -------------|----------
 OK     | composer     | Opcional
-x      | git          | Opcional
+OK     | git          | Opcional
 OK     | mysql-client | Opcional
 OK     | nodejs       | Opcional
 x      | supervisor   | Opcional
