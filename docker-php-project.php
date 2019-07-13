@@ -37,7 +37,7 @@ if (isset($argv[1]) && $argv[1] == '--create') {
     exit(0);
 }
 
-if (isset($argv[1]) && $argv[1] == '--new') {
+if (isset($argv[1]) && $argv[1] == '--default') {
     $controlFile = implode(DIRECTORY_SEPARATOR, [getcwd(), 'docker-project.ini']);
     file_put_contents($controlFile, file_get_contents('docker-project.ini'));
     cli_message('success', "Arquivo docker-project.ini gerado com sucesso");
@@ -130,4 +130,3 @@ if ((bool) $settings['mysql']['mysql-enabled'] == true) {
 }
 
 include implode(DIRECTORY_SEPARATOR, [__DIR__, 'docker', 'library', 'build-docker-compose.php']);
-
