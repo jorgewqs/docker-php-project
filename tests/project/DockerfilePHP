@@ -1,4 +1,4 @@
-FROM php:7.3-fpm
+FROM php:7.2-fpm
 
 
 ##############################################
@@ -19,10 +19,7 @@ RUN docker-php-ext-install -j$(nproc) bcmath;
 
 
 # GD
-RUN apt-get install -y libfreetype6-dev;
-RUN apt-get install -y libjpeg62-turbo-dev;
 RUN apt-get install -y libpng-dev;
-RUN docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/;
 RUN docker-php-ext-install -j$(nproc) gd;
 
 
@@ -51,12 +48,12 @@ RUN php -r "unlink('composer-setup.php');"
 RUN apt-get install -y git;
 
 
-# MYSQL CLIENT
-RUN apt-get install -y mysql-client;
-
-
 # NODEJS
 RUN apt-get install -y nodejs --no-install-recommends;
+
+
+# UNZIP
+RUN apt-get install -y unzip;
 
 
 ##############################################

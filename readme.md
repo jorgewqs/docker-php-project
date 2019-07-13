@@ -22,6 +22,26 @@ ser adicionadas para facilitar ainda mais o processo de configuração.
 
 # 2. Funcionamento
 
+## Comandos básicos
+
+Para criar um novo projeto e gerar os arquivos necessários com base nas informações padrões:
+
+```
+$ docker-php-project --default
+```
+
+Para criar um arquivo padrão (docker-project.ini) para configuração do projeto:
+
+```
+$ docker-php-project --create
+```
+
+Para gerar os arquivos do Docker (docker-compose.yml, Dockerfile, etc) com base no arquivo de configuração (docker-project.ini) existente:
+
+```
+$ docker-php-project
+```
+
 ## Arquivo docker-project.ini
 Para poder gerar um projeto do Docker, é necessário existir um arquivo chamado "docker-project.ini" no diretório atual, contendo os parâmetros do projeto desejado.
 
@@ -164,7 +184,6 @@ As marcadas estão disponíveis por padrão no container da aplicação:
 
 - [x] composer
 - [x] git     
-- [x] mysql-client
 - [x] nodejs      
 - [ ] supervisor  
 - [x] unzip       
@@ -210,22 +229,9 @@ root@4f4409d25008:/var/www/html# composer install
 ```
 
 
-## Acessando o mysql
+## Acessando o mysql no computador
 
-### Pelo mysql-client da aplicação
-
-Por padrão, a aplicação vem com o cliente do mysql instalado, com a finalidade de facilitar operações específicas com banco de dados sem a necessidade de instalar no computador do desenvolvedor.
-
-Para executar, basta observar o exemplo:
-
-```
-docker exec -it app bash 
-root@4f4409d25008:/var/www/html# mysql -h database -u root -p app_database < meus_dados.sql
-```
-
-### Por um gerenciador instalado no computador
-
-Quando o container está em execução, é possível acessá-lo normalmente, como se o software estivesse instalado diretamente no computador. Essa é a mágica da conteinerização.
+Quando o container está em execução, é possível acessá-lo normalmente através do host, como se o software estivesse instalado diretamente no computador. Essa é a mágica da conteinerização.
 
 Para acessar o servidor de banco de dados usando uma ferramenta de gerenciamento instalada no computador, existem duas formas:
 
