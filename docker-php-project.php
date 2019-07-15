@@ -32,14 +32,14 @@ if (isset($argv[1]) && ($argv[1] == '--help' || $argv[1] == '-h')) {
 
 if (isset($argv[1]) && $argv[1] == '--create') {
     $controlFile = implode(DIRECTORY_SEPARATOR, [getcwd(), 'docker-project.ini']);
-    file_put_contents($controlFile, file_get_contents('docker-project.ini'));
+    file_put_contents($controlFile, file_get_contents($controlFile));
     cli_message('success', "Arquivo docker-project.ini gerado com sucesso");
     exit(0);
 }
 
 if (isset($argv[1]) && $argv[1] == '--default') {
     $controlFile = implode(DIRECTORY_SEPARATOR, [getcwd(), 'docker-project.ini']);
-    file_put_contents($controlFile, file_get_contents('docker-project.ini'));
+    file_put_contents($controlFile, file_get_contents($controlFile));
     cli_message('success', "Arquivo docker-project.ini gerado com sucesso");
     cli_message('default', "gerando um novo projeto docker");
 }
