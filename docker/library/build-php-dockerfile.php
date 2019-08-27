@@ -24,7 +24,7 @@ if (in_array($version, [56,70,71,72,73] ) == false) {
     exit(1);
 }
 
-cli_step('success', "PHP {$config['php-version']}");
+cli_step('success', "PHP {$config['php-version']}"); 
 
 switch($version) {
     case 56: 
@@ -85,7 +85,7 @@ foreach($config as $module => $status) {
             continue;
         }
 
-        if ($version > 56 && $module == 'mysql') {
+        if ($version > 56 && $module == 'mysql' && (bool) $settings['mysql']['mysql-enabled'] === true) {
             cli_step('skip', "Módulo $module");
             cli_message('warning', "A partir do PHP 7.0, a extensão mysql foi depreciada e não está mais disponivel!");
             continue;

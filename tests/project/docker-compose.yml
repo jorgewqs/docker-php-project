@@ -13,7 +13,7 @@ services:
             - ".:/var/www/html"
             - "./docker-php.ini:/usr/local/etc/php/conf.d/local.ini"
         ports:
-            - "30001:9000" # mapeada a porta app para a porta 9000
+            - "30001:9000" # mapeada a porta app para a porta 9000 
         depends_on:
             - mysql
         networks:

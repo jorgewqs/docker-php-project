@@ -8,7 +8,7 @@
  */
 
 $config = $settings['php'];
-$extras = $settings['extra'];
+$extras = $settings['extra']; 
 
 $dockerComposeFile  = implode(DIRECTORY_SEPARATOR, [getcwd(), 'docker-compose.yml']);
 
@@ -16,6 +16,13 @@ $php_container = $settings['php']['php-container-name'];
 $php_port      = $settings['php']['php-port'];
 
 # - \"./docker/scripts/boot-laravel.sh:/usr/local/bin/boot-laravel\"
+
+$phpDepends = "";
+if ( (bool) $settings['mysql']['mysql-enabled'] === true) {
+    $phpDepends = "
+        depends_on:
+            - mysql";
+}
 
 $php = "
     # Camada da aplicação
@@ -29,9 +36,7 @@ $php = "
             - \".:/var/www/html\"
             - \"./docker-php.ini:/usr/local/etc/php/conf.d/local.ini\"
         ports:
-            - \"{$php_port}:9000\" # mapeada a porta {$php_container} para a porta 9000
-        depends_on:
-            - mysql
+            - \"{$php_port}:9000\" # mapeada a porta {$php_container} para a porta 9000 {$phpDepends}
         networks:
           - container-network
 ";
