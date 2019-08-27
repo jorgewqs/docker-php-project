@@ -6,7 +6,7 @@ Este é um pacote de software para distribuições Linux baseadas em Debian que 
 
 Para usar:
 
-1. Faça o download e instale a última versão do pacote [docker-php-project_1.3.0_all.deb](https://github.com/ricardopedias/docker-php-project/raw/master/dist/docker-php-project_1.3.0_all.deb);
+1. Faça o download e instale a última versão do pacote [docker-php-project_1.3.1_all.deb](https://github.com/ricardopedias/docker-php-project/raw/master/dist/docker-php-project_1.3.1_all.deb);
 2. Abra o terminal e execute o comando "docker-php-project" em qualquer lugar para gerar projetos do Docker :)
 
 # 1. Objetivo
@@ -24,12 +24,6 @@ ser adicionadas para facilitar ainda mais o processo de configuração.
 
 ## Comandos básicos
 
-Para criar um novo projeto e gerar os arquivos necessários com base nas informações padrões:
-
-```
-$ docker-php-project --default
-```
-
 Para criar um arquivo padrão (docker-project.ini) para configuração do projeto:
 
 ```
@@ -41,6 +35,13 @@ Para gerar os arquivos do Docker (docker-compose.yml, Dockerfile, etc) com base 
 ```
 $ docker-php-project
 ```
+
+Para fazer as duas coisas acima ao mesmo tempo:
+
+```
+$ docker-php-project --default
+```
+
 
 ## Arquivo docker-project.ini
 Para poder gerar um projeto do Docker, é necessário existir um arquivo chamado "docker-project.ini" no diretório atual, contendo os parâmetros do projeto desejado.
