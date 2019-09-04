@@ -63,3 +63,8 @@ dpkg-deb -b $DIST/docker-php-project/ $DIST
 
 # remove os arquivo gerados na instalação
 rm -Rf docker-php-project
+
+# atualiza o arquivo readme.md
+cd ..
+sed -i -- "s/\[docker-php-project_.*_all.deb\]/[docker-php-project_${VERSION}_all.deb]/g" readme.md
+sed -i -- "s/dist\/docker-php-project_.*_all.deb/dist\/docker-php-project_${VERSION}_all.deb/g" readme.md
