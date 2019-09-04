@@ -34,8 +34,12 @@ else
 fi
 
 # seta configurações adequadas
-git config user.name = 'Ricardo Pereira'
-git config user.email = 'contato@ricardopdias.com.br'
+git config user.name 'Ricardo Pereira'
+git config user.email 'contato@ricardopdias.com.br'
+
+USERNAME=$(git config user.name);
+EMAIL=$(git config user.email);
+echo -e "Comitando como ${USERNAME} <${EMAIL}>";
 
 # submete a nova tag
 git tag -a "v${RELEASE_NUMBER}" -m '';
@@ -51,3 +55,5 @@ git add dist/docker-php-project*
 git add readme.md
 git commit -m "Compilada nova versão do pacote Debian";
 git push https://ricardopedias@github.com/ricardopedias/docker-php-project.git
+
+echo -e "${GREEN}Novo release lançado com sucesso!${NC}";
