@@ -33,9 +33,13 @@ else
     exit;
 fi
 
+# seta configurações adequadas
+git config user.name = 'Ricardo Pereira'
+git config user.email = 'contato@ricardopdias.com.br'
+
 # submete a nova tag
 git tag -a "v${RELEASE_NUMBER}" -m '';
-git push --tags
+git push https://ricardopedias@github.com/ricardopedias/docker-php-project.git --tags
 
 # gera um novo pacote deb
 cd dist;
@@ -46,4 +50,4 @@ cd $ROOT;
 git add dist/docker-php-project*
 git add readme.md
 git commit -m "Compilada nova versão do pacote Debian";
-git push
+git push https://ricardopedias@github.com/ricardopedias/docker-php-project.git
