@@ -1,4 +1,0 @@
-
-# TIDY
-RUN apt-get install -y libtidy-dev;
-RUN docker-php-ext-install -j$(nproc) tidy;

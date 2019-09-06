@@ -1,5 +1,0 @@
-
-# PDO DBLIB
-RUN apt-get install -y freetds-bin freetds-dev freetds-common libsybdb5;
-RUN ln -s /usr/lib/x86_64-linux-gnu/libsybdb.so /usr/lib/;
-RUN docker-php-ext-install -j$(nproc) pdo_dblib;

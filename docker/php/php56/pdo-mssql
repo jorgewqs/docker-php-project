@@ -1,5 +1,0 @@
-
-# PDO MSSQL
-RUN apt-get install -y libsybdb5 freetds-bin freetds-dev freetds-common --no-install-recommends;
-RUN ln -s /usr/lib/x86_64-linux-gnu/libsybdb.a /usr/lib/
-RUN docker-php-ext-install -j$(nproc) mssql;

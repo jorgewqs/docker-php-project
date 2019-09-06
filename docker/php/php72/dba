@@ -1,3 +1,0 @@
-
-# DBA
-RUN docker-php-ext-install -j$(nproc) dba;

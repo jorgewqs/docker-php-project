@@ -1,3 +1,0 @@
-
-# OPCACHE
-RUN docker-php-ext-install -j$(nproc) opcache;

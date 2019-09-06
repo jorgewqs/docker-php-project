@@ -1,5 +1,0 @@
-
-# IMAP
-RUN apt-get install -y libc-client-dev libkrb5-dev;
-RUN docker-php-ext-configure imap --with-imap-ssl --with-kerberos;
-RUN docker-php-ext-install imap;

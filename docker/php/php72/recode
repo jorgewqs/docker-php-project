@@ -1,4 +1,0 @@
-
-# RECODE
-RUN apt-get install -y librecode0 librecode-dev;
-RUN docker-php-ext-install -j$(nproc) recode;

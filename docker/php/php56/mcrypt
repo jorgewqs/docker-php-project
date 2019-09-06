@@ -1,4 +1,0 @@
-
-# MCRYPT
-RUN apt-get install -y libmcrypt-dev;
-RUN docker-php-ext-install -j$(nproc) mcrypt;

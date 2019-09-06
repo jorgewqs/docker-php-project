@@ -1,3 +1,0 @@
-
-# MYSQL CLIENT
-RUN apt-get install -y mysql-client;

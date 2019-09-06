@@ -1,4 +1,0 @@
-
-# SYBASE CT (TODO)
-# RUN docker-php-ext-configure sybase_ct --with-sybase-ct=/usr;
-# RUN docker-php-ext-install -j$(nproc) sybase_ct;

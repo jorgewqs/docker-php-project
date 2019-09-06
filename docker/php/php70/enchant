@@ -1,4 +1,0 @@
-
-# ENCHANT
-RUN apt-get install -y libenchant-dev;
-RUN docker-php-ext-install -j$(nproc) enchant;

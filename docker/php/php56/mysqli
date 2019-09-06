@@ -1,3 +1,0 @@
-
-# MYSQLI
-RUN docker-php-ext-install -j$(nproc) mysqli; 

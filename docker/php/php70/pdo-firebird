@@ -1,4 +1,0 @@
-
-# PDO FIREBIRD
-RUN apt-get install -y firebird-dev;
-RUN docker-php-ext-install -j$(nproc) pdo_firebird;

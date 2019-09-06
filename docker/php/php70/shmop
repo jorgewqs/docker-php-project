@@ -1,3 +1,0 @@
-
-# SHMOP
-RUN docker-php-ext-install -j$(nproc) shmop;

@@ -1,4 +1,0 @@
-
-# GD
-RUN apt-get install -y libpng-dev;
-RUN docker-php-ext-install -j$(nproc) gd;

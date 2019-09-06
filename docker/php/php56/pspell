@@ -1,4 +1,0 @@
-
-# PSPELL
-RUN apt-get install -y libpspell-dev aspell-en aspell-pt-br;
-RUN docker-php-ext-install -j$(nproc) pspell;
