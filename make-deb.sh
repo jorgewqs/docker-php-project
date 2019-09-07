@@ -19,6 +19,7 @@ NC='\033[0m';
 PATH_ROOT=$(cd "$(dirname "$0")" && pwd);
 PATH_DIST="$PATH_ROOT/dist";
 PHAR_FILE="$PATH_ROOT/dist/php-project.phar";
+VERSION_FILE="$PATH_ROOT/src/version.txt";
 
 # se a tag possuir o "v" no inicio
 VERSION=$(git describe --tags $(git rev-list --tags --max-count=1));
@@ -27,6 +28,8 @@ if [ "${VERSION:0:1}" == "v"  ]; then
     VERSION=${VERSION:1:5}; 
 fi
 
+echo "$VERSION" > "$VERSION_FILE";
+ 
 cd $PATH_DIST;
 
 # gera a estrutura do pacote
