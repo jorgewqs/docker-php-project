@@ -19,7 +19,7 @@ class ProjectFactory
 
         foreach($containers as $name => $config) {
 
-            cli_info("Gerando arquivos do " . strtoupper($name) . PHP_EOL);
+            cli_info("Processando configurações do " . strtoupper($name) . PHP_EOL);
 
             $className = "\\Dpp\\" . strtoupper($name) . '\\BuildDockerFile';
             if ( class_exists($className) ) {
@@ -29,7 +29,7 @@ class ProjectFactory
             }
         }
 
-        cli_info("Gerando docker-compose.yaml" . PHP_EOL);
+        cli_info("Processando configurações docker-compose.yaml" . PHP_EOL);
         (new \Dpp\BuildDockerCompose(null))
             ->setProjectDir($this->projectDir)
             ->save(dirname($this->projectDir));
