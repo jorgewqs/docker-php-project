@@ -1,5 +1,14 @@
 <?php
 
+# -------------------------------------------------------
+# Docker PHP Project
+# -------------------------------------------------------
+# Este arquivo possui as configurações usadas para 
+# subir os containers do projeto docker
+#
+# Para mais informações, acesse: 
+# https://github.com/ricardopedias/docker-php-project
+
 set('workdir', '/project');
 
 php('7.3')
