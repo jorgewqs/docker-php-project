@@ -9,10 +9,12 @@
 # 
 
 RED='\033[0;31m';
+BLUE='\e[34m';
 GREEN='\033[0;32m';
 NC='\033[0m';
 
 PATH_ROOT=$(cd "$(dirname "$0")" && pwd);
+VERSION_FILE="$PATH_ROOT/src/version.txt";
 
 # se a tag possuir o "v" no inicio
 VERSION=$(cd $PATH_ROOT ; git describe --tags $(git rev-list --tags --max-count=1));
@@ -45,10 +47,16 @@ echo -e "Comitando como ${USERNAME} <${EMAIL}>";
 git tag -a "v${RELEASE_NUMBER}" -m '';
 git push https://ricardopedias@github.com/ricardopedias/docker-php-project.git --tags
 
+# atualiza o arquivo de versão
+echo "$RELEASE_NUMBER" > "$VERSION_FILE";
+
+echo -e "${BLUE}→ Compilando novo programa${NC}";
+sudo $PATH_ROOT/make-phar.php;
+
 # gera um novo pacote deb
 ./make-deb.sh;
 
-cr $PATH_ROOT;
+cd $PATH_ROOT;
 
 # submete o novo pacote
 git add dist/docker-php-project*
