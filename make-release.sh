@@ -59,7 +59,8 @@ sudo $PATH_ROOT/make-phar.php;
 cd $PATH_ROOT;
 
 # submete o novo pacote
-git add dist/docker-php-project*
+git add dist/*
+git add src/version.txt
 git add readme.md
 git commit -m "Compilada nova versão do pacote Debian";
 git push https://ricardopedias@github.com/ricardopedias/docker-php-project.git
