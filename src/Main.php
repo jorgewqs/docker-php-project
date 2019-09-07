@@ -17,10 +17,6 @@ check_php_version();
 $operation = $argv[1] ?? null;
 $task      = $argv[2] ?? null;
 
-if ($operation != 'init') {
-    check_project_file();
-}
-
 switch($operation) {
     case 'up':
         load_project_file();
@@ -33,5 +29,28 @@ switch($operation) {
     case 'init':
         generate_project_file();
         break;
+
+    default:
+        $sp = "  ";
+        cli_out("Docker PHP Project " . cli_color('green', version()));
+        cli_out(PHP_EOL);
+        cli_out( cli_color('yellow', "Usage:") );
+        cli_out(PHP_EOL);
+        cli_out( "${sp}php-project [options] [arguments]" );
+        cli_out(PHP_EOL);
+        cli_out(PHP_EOL);
+        
+        cli_out( cli_color('yellow', "Options:") );
+        cli_out(PHP_EOL);
+        cli_out( cli_color('green', "${sp}init      ") . "Inicia um novo projeto no diretório atual" );
+        cli_out(PHP_EOL);
+        cli_out( cli_color('green', "${sp}up        ") . "Constrói e sobe os containers do projeto" );
+        cli_out(PHP_EOL);
+        cli_out( cli_color('green', "${sp}down      ") . "Para a execução dos contaners" );
+        cli_out(PHP_EOL);
+
+
+          
+
     
 }

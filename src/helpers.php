@@ -1,9 +1,11 @@
 <?php
 
-/**
- * Libera uma mensagem para o terminal
- * @param string $message
- */
+
+function version()
+{
+    return file_get_contents(__DIR__ . DIRECTORY_SEPARATOR . 'version.txt');
+}
+
 function cli_out($message)
 {
     fwrite(STDOUT, $message);

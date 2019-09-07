@@ -29,7 +29,7 @@ class ProjectFactory
             }
         }
 
-        cli_info("Processando configurações docker-compose.yaml" . PHP_EOL);
+        cli_ok("Analisando docker-compose.yaml" . PHP_EOL);
         (new \Dpp\BuildDockerCompose(null))
             ->setProjectDir($this->projectDir)
             ->save(dirname($this->projectDir));
