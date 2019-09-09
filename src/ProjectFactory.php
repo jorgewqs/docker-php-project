@@ -34,6 +34,11 @@ class ProjectFactory
             ->setProjectDir($this->projectDir)
             ->save(dirname($this->projectDir));
 
+        // cli_ok("Gerando ambiente do bash" . PHP_EOL);
+        // (new \Dpp\BuildBashrc(null))
+        //     ->setProjectDir($this->projectDir)
+        //     ->save($this->projectDir);
+
         // $this->removeFiles();
 
         return $this;

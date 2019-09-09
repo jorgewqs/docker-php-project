@@ -128,7 +128,33 @@ function generate_project_file()
 
 function load_project_file()
 {
+    $projectFile = getcwd() . '/docker.php';
+    if (! is_file($projectFile)) {
+        return false;
+    }
     include getcwd() . '/docker.php';
+    return true;
+}
+
+function show_help()
+{
+    $sp = "  ";
+    cli_out("Docker PHP Project " . cli_color('green', version()));
+    cli_out(PHP_EOL);
+    cli_out( cli_color('yellow', "Usage:") );
+    cli_out(PHP_EOL);
+    cli_out( "${sp}php-project [options] [arguments]" );
+    cli_out(PHP_EOL);
+    cli_out(PHP_EOL);
+    
+    cli_out( cli_color('yellow', "Options:") );
+    cli_out(PHP_EOL);
+    cli_out( cli_color('green', "${sp}init      ") . "Inicia um novo projeto no diretório atual" );
+    cli_out(PHP_EOL);
+    cli_out( cli_color('green', "${sp}up        ") . "Constrói e sobe os containers do projeto" );
+    cli_out(PHP_EOL);
+    cli_out( cli_color('green', "${sp}down      ") . "Para a execução dos contaners" );
+    cli_out(PHP_EOL);
 }
 
 function set($param, $value)

@@ -19,7 +19,11 @@ $task      = $argv[2] ?? null;
 
 switch($operation) {
     case 'up':
-        load_project_file();
+        if (load_project_file() == false){
+            cli_error('O arquivo "docker.php" não foi encontrado neste diretório' . PHP_EOL);
+            cli_out('Use "php-project ini" para gerá-lo.' . PHP_EOL);
+            exit(1);
+        }
         (new ProjectFactory)->run();
         break;
 
@@ -31,26 +35,6 @@ switch($operation) {
         break;
 
     default:
-        $sp = "  ";
-        cli_out("Docker PHP Project " . cli_color('green', version()));
-        cli_out(PHP_EOL);
-        cli_out( cli_color('yellow', "Usage:") );
-        cli_out(PHP_EOL);
-        cli_out( "${sp}php-project [options] [arguments]" );
-        cli_out(PHP_EOL);
-        cli_out(PHP_EOL);
-        
-        cli_out( cli_color('yellow', "Options:") );
-        cli_out(PHP_EOL);
-        cli_out( cli_color('green', "${sp}init      ") . "Inicia um novo projeto no diretório atual" );
-        cli_out(PHP_EOL);
-        cli_out( cli_color('green', "${sp}up        ") . "Constrói e sobe os containers do projeto" );
-        cli_out(PHP_EOL);
-        cli_out( cli_color('green', "${sp}down      ") . "Para a execução dos contaners" );
-        cli_out(PHP_EOL);
-
-
-          
-
+        show_help();
     
 }

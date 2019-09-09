@@ -7,7 +7,11 @@
 # Este script é uma ponte para invocação do arquivo phar
 # 
 
-php /usr/bin/php-project.phar $@
+php /usr/bin/php-project.phar $@;
+
+if [ "$?" = "1" ]; then
+    exit 1;
+fi
 
 if [ "$1" = "up" ]; then
     docker-compose $@
