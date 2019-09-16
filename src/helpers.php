@@ -93,6 +93,28 @@ function cli_ok($message, $shutdown = false)
     }
 }
 
+function cli_step_ok($icon, $action, $message)
+{
+    $icon = cli_color('green', $icon);
+    $message = cli_color('green', $message);
+    cli_out($icon . " " . $action . " " . $message . PHP_EOL);
+}
+
+function cli_step_info($icon, $action, $message)
+{
+    $icon = cli_color('blue', $icon);
+    $message = cli_color('blue', $message);
+    cli_out($icon . " " . $action . " " . $message . PHP_EOL);
+}
+
+function cli_step_error($icon, $action, $message)
+{
+    $icon = cli_color('red', $icon);
+    $message = cli_color('yellow', $message);
+    cli_out($icon . " " . $action . " " . $message . PHP_EOL);
+}
+
+
 function check_php_version()
 {
     if (!defined('PHP_MAJOR_VERSION') || PHP_MAJOR_VERSION < 7) {
@@ -113,16 +135,22 @@ function check_project_file()
 
 function generate_project_file()
 {
-    cli_info("Gerando arquivo docker.php".PHP_EOL);
+    cli_step_info("→", 'Gerando arquivo', 'docker.php');
 
     $source = __DIR__ . DIRECTORY_SEPARATOR . 'docker.php';
     $destiny = getcwd() . '/docker.php';
-    copy($source, $destiny);
+
+    $basename = \Dpp\Register::getInstance()->getDefaultParam('basename');
+    $contents = file_get_contents($source);
+    $contents = str_replace("->param('---name---', 'app')", "->param('name', 'app_{$basename}')", $contents);
+    $contents = str_replace("->param('---name---', 'webserver')", "->param('name', 'webserver_{$basename}')", $contents);
+    $contents = str_replace("->param('---name---', 'database')", "->param('name', 'database_{$basename}')", $contents);
+    file_put_contents($destiny, $contents);
 
     if (is_file($destiny)) {
-        cli_ok( cli_bold("Arquivo gerado com sucesso!") . PHP_EOL);
+        cli_step_ok("✔", 'OK', '');
     } else {
-        cli_error( cli_bold("Não foi possível gerar o arquivo!") . PHP_EOL);
+        cli_step_error("✖", 'Erro:', 'Não foi possível gerar o arquivo!');
     }
 }
 
@@ -182,4 +210,8 @@ function mysql($version)
     return (new Dpp\Module('mysql'))->version($version);
 }
 
+function task($name)
+{
+    return (new Dpp\Task($name));
+}
 

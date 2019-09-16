@@ -16,12 +16,13 @@ class Register
         return self::$instance;
     }
 
-    private function init($module)
+    private function init($tag)
     {
-        if (! isset($this->params[$module])) {
-            $this->params[$module] = [
+        if (! isset($this->params[$tag])) {
+            $this->params[$tag] = [
                 'version'    => 0,
                 'params'     => [],
+                'commands'   => [],
                 'extensions' => [],
                 'tools'      => []
             ];
@@ -30,65 +31,98 @@ class Register
 
     // Versão
 
-    public function addVersion($module, $version)
+    public function addVersion($tag, $version)
     {
-        $this->init($module);
-        $this->params[$module]['version'] = (int) preg_replace('#[^0-9]#', '', $version);
+        $this->init($tag);
+        $this->params[$tag]['version'] = (int) preg_replace('#[^0-9]#', '', $version);
         return $this;
     }
 
-    public function getVersion($module)
+    public function getVersion($tag)
     {
-        $this->init($module);
-        return $this->params[$module]['version'] ?? null;
+        $this->init($tag);
+        return $this->params[$tag]['version'] ?? null;
     }
 
     // Parâmetros
 
-    public function addParam($module, $param, $value)
+    public function addParam($tag, $param, $value)
     {
-        $this->init($module);
-        $this->params[$module]['params'][$param] = $value;
+        $this->init($tag);
+        $this->params[$tag]['params'][$param] = $value;
         return $this;
     }
 
-    public function getParam($module, $param)
+    public function getParam($tag, $param)
     {
-        $this->init($module);
-        return $this->params[$module]['params'][$param] ?? null;
+        $this->init($tag);
+        return $this->params[$tag]['params'][$param] ?? null;
     }
 
-    public function removeParam($module, $param)
+    public function removeParam($tag, $param)
     {
-        $this->init($module);
-        if (isset($this->params[$module]['params'][$param])) {
-            usnet($this->params[$module]['params'][$param]);
+        $this->init($tag);
+        if (isset($this->params[$tag]['params'][$param])) {
+            usnet($this->params[$tag]['params'][$param]);
         }
         return $this;
     }
 
-    // Extensões
+    // Tarefas
 
-    public function addExtension($module, $value)
+    public function addTask($name, $value)
     {
-        $this->init($module);
-        $this->params[$module]['extensions'][] = $value;
+        $this->init('tasks');
+        if (!isset($this->params['tasks']['commands'][$name])) {
+            $this->params['tasks']['commands'][$name] = [];
+        }
+        $this->params['tasks']['commands'][$name][] = $value;
         return $this;
     }
 
-    protected function hasExtension($module, $name)
+    public function getTask($name)
     {
-        $extensions = array_flip($this->params[$module]['extensions']);
+        $this->init('tasks');
+        return $this->params['tasks']['commands'][$name] ?? null;
+    }
+
+    public function removeTask($name)
+    {
+        $this->init('tasks');
+        if (isset($this->params['tasks']['commands'][$name])) {
+            usnet($this->params['tasks']['commands'][$name]);
+        }
+        return $this;
+    }
+
+    public function getTasks()
+    {
+        $this->init('tasks');
+        return $this->params['tasks']['commands'];
+    }
+
+    // Extensões
+
+    public function addExtension($tag, $value)
+    {
+        $this->init($tag);
+        $this->params[$tag]['extensions'][] = $value;
+        return $this;
+    }
+
+    protected function hasExtension($tag, $name)
+    {
+        $extensions = array_flip($this->params[$tag]['extensions']);
         return isset($extensions[$name]);
     }
 
-    public function removeExtension($module, $name)
+    public function removeExtension($tag, $name)
     {
-        $this->init($module);
+        $this->init($tag);
 
-        foreach($this->params[$module]['extensions'] as $index => $label) {
+        foreach($this->params[$tag]['extensions'] as $index => $label) {
             if($label == $name) {
-                unset($this->params[$module]['extensions'][$index]);
+                unset($this->params[$tag]['extensions'][$index]);
                 break;
             }
         }
@@ -98,26 +132,26 @@ class Register
 
     // Ferramentas
 
-    public function addTool($module, $value)
+    public function addTool($tag, $value)
     {
-        $this->init($module);
-        $this->params[$module]['tools'][] = $value;
+        $this->init($tag);
+        $this->params[$tag]['tools'][] = $value;
         return $this;
     }
 
-    protected function hasTool($module, $name)
+    protected function hasTool($tag, $name)
     {
-        $extensions = array_flip($this->params[$module]['tools']);
+        $extensions = array_flip($this->params[$tag]['tools']);
         return isset($extensions[$name]);
     }
 
-    public function removeTool($module, $name)
+    public function removeTool($tag, $name)
     {
-        $this->init($module);
+        $this->init($tag);
 
-        foreach($this->params[$module]['tools'] as $index => $label) {
+        foreach($this->params[$tag]['tools'] as $index => $label) {
             if($label == $name) {
-                unset($this->params[$module]['tools'][$index]);
+                unset($this->params[$tag]['tools'][$index]);
                 break;
             }
         }
