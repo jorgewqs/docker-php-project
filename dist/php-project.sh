@@ -14,9 +14,10 @@ if [ "$?" = "1" ]; then
 fi
 
 if [ "$1" = "up" ]; then
-    docker-compose $@
+    docker-compose up -d
+    php /usr/bin/php-project.phar tasks;
 fi
 
 if [ "$1" = "down" ]; then
-    docker-compose $@
+    docker-compose down
 fi

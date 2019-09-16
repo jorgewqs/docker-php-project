@@ -93,23 +93,37 @@ function cli_ok($message, $shutdown = false)
     }
 }
 
-function cli_step_ok($icon, $action, $message)
+function cli_step_run($action, $message = '')
 {
-    $icon = cli_color('green', $icon);
+    $icon = cli_color('green', "✈︎");
     $message = cli_color('green', $message);
     cli_out($icon . " " . $action . " " . $message . PHP_EOL);
 }
 
-function cli_step_info($icon, $action, $message)
+function cli_step_echo($action, $message = '')
 {
-    $icon = cli_color('blue', $icon);
+    $icon = cli_color('blue', " ");
     $message = cli_color('blue', $message);
     cli_out($icon . " " . $action . " " . $message . PHP_EOL);
 }
 
-function cli_step_error($icon, $action, $message)
+function cli_step_ok($action, $message = '')
 {
-    $icon = cli_color('red', $icon);
+    $icon = cli_color('green', "✔");
+    $message = cli_color('green', $message);
+    cli_out($icon . " " . $action . " " . $message . PHP_EOL);
+}
+
+function cli_step_info($action, $message = '')
+{
+    $icon = cli_color('blue', "→");
+    $message = cli_color('blue', $message);
+    cli_out($icon . " " . $action . " " . $message . PHP_EOL);
+}
+
+function cli_step_error($action, $message = '')
+{
+    $icon = cli_color('red', "✖");
     $message = cli_color('yellow', $message);
     cli_out($icon . " " . $action . " " . $message . PHP_EOL);
 }
@@ -135,7 +149,7 @@ function check_project_file()
 
 function generate_project_file()
 {
-    cli_step_info("→", 'Gerando arquivo', 'docker.php');
+    cli_step_info('Gerando arquivo', 'docker.php');
 
     $source = __DIR__ . DIRECTORY_SEPARATOR . 'docker.php';
     $destiny = getcwd() . '/docker.php';
@@ -148,9 +162,9 @@ function generate_project_file()
     file_put_contents($destiny, $contents);
 
     if (is_file($destiny)) {
-        cli_step_ok("✔", 'OK', '');
+        cli_step_ok('OK', '');
     } else {
-        cli_step_error("✖", 'Erro:', 'Não foi possível gerar o arquivo!');
+        cli_step_error('Erro:', 'Não foi possível gerar o arquivo!');
     }
 }
 

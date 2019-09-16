@@ -9,10 +9,6 @@
 # Para mais informações, acesse: 
 # https://github.com/ricardopedias/docker-php-project
 
-task('teste')
-    ->run('echo "KKKKKKKKK";')
-    ->run('echo "HOHOHOHOHO";');
-
 php('7.3')
     ->param('---name---', 'app')
     ->extension('mysql')
@@ -37,5 +33,7 @@ mysql('5.7')
     ->param('init-database', 'true')
     ->param('init-database-path', 'database');
 
+task('test')
+    ->run('echo "Tarefa executada";');
     
     
