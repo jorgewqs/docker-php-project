@@ -15,11 +15,17 @@ class ProjectFactory
     {
         $this->makeDir();
 
+        cli_step_ok("✈︎", 'Subindo containers', Register::getInstance()->getDefaultParam('basename'));
+
         $containers = Register::getInstance()->all();
 
         foreach($containers as $name => $config) {
 
-            cli_info("Processando configurações do " . strtoupper($name) . PHP_EOL);
+            if ($name === 'tasks') {
+                continue;
+            }
+
+            cli_step_info("→", 'Processando configurações', strtoupper($name));
 
             $className = "\\Dpp\\" . strtoupper($name) . '\\BuildDockerFile';
             if ( class_exists($className) ) {
@@ -29,16 +35,15 @@ class ProjectFactory
             }
         }
 
-        cli_ok("Analisando docker-compose.yaml" . PHP_EOL);
+        cli_step_ok("✔", 'Analisando', 'docker-compose.yaml');
         (new \Dpp\BuildDockerCompose(null))
             ->setProjectDir($this->projectDir)
             ->save(dirname($this->projectDir));
 
-        // cli_ok("Gerando ambiente do bash" . PHP_EOL);
-        // (new \Dpp\BuildBashrc(null))
-        //     ->setProjectDir($this->projectDir)
-        //     ->save($this->projectDir);
-
+        // TODO
+        // Verificar se o container já existe e perguntar se usuario quer matá-lo
+        // ...
+        
         // $this->removeFiles();
 
         return $this;
