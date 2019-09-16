@@ -15,14 +15,14 @@ Para usar:
 1. Faça o download e instale a última versão do pacote [docker-php-project_2.2.0_all.deb](https://github.com/ricardopedias/docker-php-project/raw/master/dist/docker-php-project_2.2.0_all.deb);
 2. Abra o terminal e execute o comando "php-project" em qualquer lugar para gerar projetos do Docker :)
 
-# 1. Objetivo
+## 1. Objetivo
 
 O objetivo desta ferramenta é possibilitar a execução de qualquer projeto PHP sem a necessidade de instalar a infraestrutura (web server, linguagem e banco de dados) no computador do desenvolvedor. Como esta ferramenta está em evolução, usada para fins reais de trabalho, novidades poderão surgir e novas funcionalidades poderão 
 ser adicionadas para facilitar ainda mais o processo de configuração.
 
-# 2. Funcionamento
+## 2. Funcionamento
 
-## 2.1. Comandos básicos
+### 2.1. Comandos básicos
 
 Para executar a infraestrutura do projeto, é necessário existir um arquivo chamado "docker.php" no diretório atual.
 Para criá-lo basta executar:
@@ -37,7 +37,7 @@ Para gerar os arquivos do Docker (docker-compose.yml, .docker-project/*) e subir
 $ php-project up
 ```
 
-## 2.2. O docker.php
+### 2.2. O docker.php
 
 O arquivo **docker.php** é a porta de entrada para uma fácil configuração. Quando um projeto é iniciado,
 o arquivo padrão contém as seguintes configurações.
@@ -71,7 +71,7 @@ task('test')
     ->run('echo "Tarefa executada";');
 ```
 
-## 2.3. As ferramentas disponíveis
+### 2.3. As ferramentas disponíveis
 
 Até o presente momento, o Docker PHP Project suporta as seguintes ferramentas:
 
@@ -81,7 +81,7 @@ nginx	   | 1.15 e 1.16
 mysql	   | 5.5, 5.6, 5.7 e 8
 php	       | 5.6, 7.0, 7.1, 7.2 e 7.3
 
-## 2.4. Tarefas
+### 2.4. Tarefas
 
 Além de configurar e executar automaticamente os containers, é possível 
 atribuir tarefas para o projeto. Todas as vezes que o projeto subir, essas tarefas serão executadas:
