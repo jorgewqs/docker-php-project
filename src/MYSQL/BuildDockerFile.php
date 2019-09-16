@@ -6,18 +6,8 @@ class BuildDockerFile extends \Dpp\BuildDockerFile
     protected function handle()
     {
         $versionString = $this->getVersionString();
-        $projectDir = basename($this->getProjectDir());
-        
         $this->add("FROM mysql:{$versionString}");
-
-        $workdir = $this->getParam('workdir');
-        if ($workdir != null) {
-            // $this->add("WORKDIR \"{$workdir}\"");
-            // $this->add("VOLUME [\"{$workdir}\"]");
-        }
-
         $this->copyFiles($this->projectDir);
-        //$this->add("COPY {$projectDir}/mysql.cnf /etc/mysql/my.cnf");
     }
 
     protected function copyFiles($destiny)

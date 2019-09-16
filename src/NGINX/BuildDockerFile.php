@@ -6,18 +6,8 @@ class BuildDockerFile extends \Dpp\BuildDockerFile
     protected function handle()
     {
         $versionString = $this->getVersionString();
-        $projectDir = basename($this->getProjectDir());
-        
         $this->add("FROM nginx:{$versionString}");
-
-        $workdir = $this->getParam('workdir');
-        if ($workdir != null) {
-            // $this->add("WORKDIR \"{$workdir}\"");
-            // $this->add("VOLUME [\"{$workdir}\"]");
-        }
-
         $this->copyFiles($this->projectDir);
-        //$this->add("COPY {$projectDir}/nginx.conf /etc/nginx/conf.d/default.conf");
     }
 
     protected function copyFiles($destiny)
