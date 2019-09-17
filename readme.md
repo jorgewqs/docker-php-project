@@ -77,11 +77,24 @@ task('test')
 
 Até o presente momento, o Docker PHP Project suporta as seguintes ferramentas:
 
-| Componente | Versão                   |
-| ---------- | ------------------------ | 
-| nginx	     | 1.15 e 1.16              | 
-| mysql	     | 5.5, 5.6, 5.7 e 8        |
-| php	     | 5.6, 7.0, 7.1, 7.2 e 7.3 |
+#### MySQL
+
+- [x] 5.5
+- [x] 5.6
+- [x] 5.7
+
+#### NGINX
+
+- [x] 1.16
+- [x] 1.17
+
+#### PHP
+
+- [x] 5.6
+- [x] 7.0
+- [x] 7.1
+- [x] 7.2
+- [x] 7.3
 
 ### 2.4. Tarefas
 

@@ -67,7 +67,7 @@ class ProjectFactory
     private function makeDir()
     {
         $parent = path_dirname($this->projectDir);
-        if (\is_writable($parent) == false) {
+        if (path_is_writable($parent) == false) {
             cli_error("Não há permissão para escrever no diretório $parent", true);
         }
 

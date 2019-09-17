@@ -258,6 +258,11 @@ function path_dirname($path)
     return dirname($path);
 }
 
+function path_is_writable($path)
+{
+    return is_writable($path);
+}
+
 function shutdown($status)
 {
     exit($status);
