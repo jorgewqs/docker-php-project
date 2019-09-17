@@ -4,7 +4,7 @@ By [Ricardo Pereira Dias](http://www.ricardopdias.com.br) ©
 
 ![PHP Version](https://img.shields.io/badge/php-%5E7.1.3-blue)
 ![License](https://img.shields.io/badge/license-MIT-blue)
-![Codacy Badge](https://api.codacy.com/project/badge/Grade/7371a9ca517c4127ad32b6b242df9d8d)
+![Codacy Badge](https://api.codacy.com/project/badge/Grade/9adfda2d2e2b4f7d9e1c417fcca257ee)
 ![Follow](https://img.shields.io/github/followers/ricardopedias?label=Siga%20no%20GitHUB&style=social)
 ![Twitter](https://img.shields.io/twitter/follow/ricardopedias?label=Siga%20no%20Twitter)
 
