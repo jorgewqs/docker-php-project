@@ -10,10 +10,12 @@ By [Ricardo Pereira Dias](http://www.ricardopdias.com.br) ©
 
 Este é um pacote de software para distribuições Linux baseadas em Debian que permite a criação de projetos PHP com Docker de forma flexível e rápida.
 
+![Screenshot](docs/terminal.png)
+
 Para usar:
 
-*  Faça o download e instale a última versão do pacote [docker-php-project_2.2.1_all.deb](https://github.com/ricardopedias/docker-php-project/raw/master/dist/docker-php-project_2.2.1_all.deb);
-*  Abra o terminal e execute o comando "php-project" em qualquer lugar para gerar projetos do Docker :)
+*   Faça o download e instale a última versão do pacote [docker-php-project_2.2.1_all.deb](https://github.com/ricardopedias/docker-php-project/raw/master/dist/docker-php-project_2.2.1_all.deb);
+*   Abra o terminal e execute o comando "php-project" em qualquer lugar para gerar projetos do Docker :)
 
 ## 1. Objetivo
 
