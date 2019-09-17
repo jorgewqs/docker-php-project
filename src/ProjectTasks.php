@@ -47,7 +47,7 @@ class ProjectTasks
                          . $command 
                          . "; echo \"---OK---\""; // para saber que todo o script foi executado
 
-                $output = shell_exec($newcommand);
+                $output = command_exec($newcommand);
                 $executed = (bool) preg_match('#---OK---#', $output);
                 $hasError = (bool) preg_match('#sh\:#', $output);
 

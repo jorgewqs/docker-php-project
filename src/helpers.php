@@ -1,29 +1,5 @@
 <?php
 
-function url_get_contents ($url) 
-{
-    if (! function_exists('curl_init') ) {
-        die( 'The cURL library is not installed.' );
-    }
-
-    $ch = curl_init();
-    curl_setopt( $ch, CURLOPT_URL, $url );
-    curl_setopt( $ch, CURLOPT_RETURNTRANSFER, true );
-    $output = curl_exec( $ch );
-    curl_close( $ch );
-    return $output;
-}
-
-function path_get_contents($path)
-{
-    return file_get_contents($path);
-}
-
-function path_basename($path)
-{
-    return basename($path);
-}
-
 function version()
 {
     return path_get_contents(__DIR__ . DIRECTORY_SEPARATOR . 'version.txt');
@@ -34,13 +10,20 @@ function cli_out($message)
     fwrite(STDOUT, $message);
 }
 
+function command_exec($command)
+{
+    return shell_exec($command);
+}
+
 function cli_exec($command, $quiet = false)
 {
     if ($quiet == true) {
-        shell_exec($command);
-    } else {
-        cli_out( shell_exec($command) );
-    }
+        command_exec($command);
+        return true;
+    } 
+    
+    cli_out( command_exec($command) );
+    return true;
 }
 
 /**
@@ -88,7 +71,7 @@ function cli_info($message, $shutdown = false)
 {
     cli_out( cli_color('blue', "→ " . $message) );
     if ($shutdown == true) {
-        exit(0);
+        shutdown(0);
     }
 }
 
@@ -96,7 +79,7 @@ function cli_error($message, $shutdown = false)
 {
     cli_out( cli_color('red', "✖ ". $message) );
     if ($shutdown == true) {
-        exit(1);
+        shutdown(1);
     }
 }
 
@@ -104,7 +87,7 @@ function cli_warn($message, $shutdown = false)
 {
     cli_out( cli_color('yellow', "⦁ " . $message) );
     if ($shutdown == true) {
-        exit(0);
+        shutdown(0);
     }
 }
 
@@ -112,7 +95,7 @@ function cli_ok($message, $shutdown = false)
 {
     cli_out( cli_color('green', "✔ " . $message) );
     if ($shutdown == true) {
-        exit(0);
+        shutdown(0);
     }
 }
 
@@ -164,7 +147,7 @@ function check_php_version()
 function check_project_file()
 {
     $projectFile = getcwd() . '/docker.php';
-    if (is_file($projectFile) == false) {
+    if (has_file($projectFile) == false) {
         cli_warn('Este projeto não foi iniciado ainda.' . PHP_EOL);
         cli_out('Use "php-project init"' . PHP_EOL, true);
     }
@@ -186,15 +169,16 @@ function generate_project_file()
 
     if (is_file($destiny)) {
         cli_step_ok('OK', '');
-    } else {
-        cli_step_error('Erro:', 'Não foi possível gerar o arquivo!');
+        return;
     }
+    
+    cli_step_error('Erro:', 'Não foi possível gerar o arquivo!');
 }
 
 function load_project_file()
 {
     $projectFile = getcwd() . '/docker.php';
-    if (! is_file($projectFile)) {
+    if (! has_file($projectFile)) {
         return false;
     }
     include getcwd() . '/docker.php';
@@ -203,22 +187,22 @@ function load_project_file()
 
 function show_help()
 {
-    $sp = "  ";
+    $space = "  ";
     cli_out("Docker PHP Project " . cli_color('green', version()));
     cli_out(PHP_EOL);
     cli_out( cli_color('yellow', "Usage:") );
     cli_out(PHP_EOL);
-    cli_out( "${sp}php-project [options] [arguments]" );
+    cli_out( "${space}php-project [options] [arguments]" );
     cli_out(PHP_EOL);
     cli_out(PHP_EOL);
     
     cli_out( cli_color('yellow', "Options:") );
     cli_out(PHP_EOL);
-    cli_out( cli_color('green', "${sp}init      ") . "Inicia um novo projeto no diretório atual" );
+    cli_out( cli_color('green', "${space}init      ") . "Inicia um novo projeto no diretório atual" );
     cli_out(PHP_EOL);
-    cli_out( cli_color('green', "${sp}up        ") . "Constrói e sobe os containers do projeto" );
+    cli_out( cli_color('green', "${space}up        ") . "Constrói e sobe os containers do projeto" );
     cli_out(PHP_EOL);
-    cli_out( cli_color('green', "${sp}down      ") . "Para a execução dos contaners" );
+    cli_out( cli_color('green', "${space}down      ") . "Para a execução dos contaners" );
     cli_out(PHP_EOL);
 }
 
@@ -252,3 +236,24 @@ function task($name)
     return (new Dpp\Task($name));
 }
 
+// Funções críticas
+
+function path_get_contents($path)
+{
+    return file_get_contents($path);
+}
+
+function path_basename($path)
+{
+    return basename($path);
+}
+
+function shutdown($status)
+{
+    exit($status);
+}
+
+function has_file($path)
+{
+    return is_file($path);
+}
