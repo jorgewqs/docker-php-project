@@ -12,7 +12,7 @@ Este é um pacote de software para distribuições Linux baseadas em Debian que 
 
 ![Screenshot](docs/terminal.png)
 
-Para usar:
+Para usar o pacote:
 
 *   Faça o download e instale a última versão do pacote [docker-php-project_2.2.4_all.deb](https://github.com/ricardopedias/docker-php-project/raw/master/dist/docker-php-project_2.2.4_all.deb);
 *   Abra o terminal e execute o comando "php-project" em qualquer lugar para gerar projetos do Docker :)

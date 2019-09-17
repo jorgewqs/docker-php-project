@@ -28,13 +28,14 @@ $task      = $argv[2] ?? null;
 set('workdir', '/project');
 set('basename', path_basename(getcwd()));
 
+if (in_array($operation, ['up', 'tasks', 'app']) && load_project_file() == false) {
+    cli_error('O arquivo "docker.php" não foi encontrado neste diretório' . PHP_EOL);
+    cli_out('Use "php-project ini" para gerá-lo.' . PHP_EOL);
+    return;
+}
+
 switch($operation) {
     case 'up':
-        if (load_project_file() == false){
-            cli_error('O arquivo "docker.php" não foi encontrado neste diretório' . PHP_EOL);
-            cli_out('Use "php-project ini" para gerá-lo.' . PHP_EOL);
-            return;
-        }
         (new ProjectFactory)->run();
         break;
 
@@ -46,12 +47,11 @@ switch($operation) {
         break;
 
     case 'tasks':
-        if (load_project_file() == false){
-            cli_error('O arquivo "docker.php" não foi encontrado neste diretório' . PHP_EOL);
-            cli_out('Use "php-project ini" para gerá-lo.' . PHP_EOL);
-            return;
-        }
         (new ProjectTasks)->run();
+        break;
+
+    case 'app':
+        return Register::getInstance()->getParam('php', 'name');
         break;
 
     default:

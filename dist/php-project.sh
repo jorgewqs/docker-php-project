@@ -21,3 +21,8 @@ fi
 if [ "$1" = "down" ]; then
     docker-compose down
 fi
+
+if [ "$1" = "bash" ]; then
+    APP_NAME=$(php /usr/bin/php-project.phar app;)
+    docker exec -it $APP_NAME bash
+fi
