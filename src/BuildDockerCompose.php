@@ -9,10 +9,9 @@ class BuildDockerCompose extends Build
         $this->add('services:');
         $this->add(' ');
 
-        $containers = Register::getInstance()->all();
-
         $projectDir = path_basename($this->getProjectDir());
 
+        $containers = Register::getInstance()->all();
         foreach($containers as $name => $config) {
 
             switch($name) {
@@ -21,7 +20,6 @@ class BuildDockerCompose extends Build
                     $php = new PHP\BuildDockerFile($config);
                     $name = $php->getParam('name', 'php');
                     $workdir = $php->getParam('workdir', '/var/www/html');
-                    $versionString = $php->getVersionString();
 
                     $this->add('php:', 1);
                     $this->add("container_name: {$name}", 2);
@@ -95,9 +93,7 @@ class BuildDockerCompose extends Build
                     break;
 
             }
-
         }
-
     }
 
     protected function getFilename($sufix = null)

@@ -17,7 +17,12 @@ class ProjectTasks
         cli_step_ok('Conteiners executando', '');
 
         $tasks = Register::getInstance()->getTasks();
+        $stop = false;
         foreach($tasks as $name => $steps) {
+
+            if ($stop == true) {
+                break;
+            }
 
             cli_step_run('Executando tarefa', $name);
 
@@ -31,7 +36,7 @@ class ProjectTasks
 
                 if (preg_match('#^cd.*#', $command)) {
                     $command = trim(str_replace('cd', '', $command));
-                    chdir ($command);
+                    change_dir($command);
                     if (preg_match("#{$topDir}#", getcwd())) {
                         cli_step_info('Diretório atual', getcwd());
                         continue;
@@ -57,15 +62,20 @@ class ProjectTasks
                     if (preg_match('#^echo.*#', $command)) {
                         cli_step_echo('"' . $outputCleaned . '"', '');
                     }
+                    continue;
+                } 
 
-                } elseif ($executed == false) {
+                if ($executed == false) {
                     cli_step_error('O comando não executou completamente', "\"$command\"");
-                    echo $outputCleaned . PHP_EOL;
+                    cli_out($outputCleaned . PHP_EOL);
+                    $stop = true;
                     break;
-
-                } elseif ($hasError == true) {
+                } 
+                
+                if ($hasError == true) {
                     cli_step_error('Um erro aconteceu ao executar', "\"$command\"");
-                    echo $outputCleaned . PHP_EOL;
+                    cli_out($outputCleaned . PHP_EOL);
+                    $stop = true;
                     break;
                 }
             }

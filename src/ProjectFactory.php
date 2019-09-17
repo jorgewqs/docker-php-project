@@ -46,7 +46,7 @@ class ProjectFactory
         cli_step_ok('Analisando', 'docker-compose.yaml');
         (new \Dpp\BuildDockerCompose(null))
             ->setProjectDir($this->projectDir)
-            ->save(dirname($this->projectDir));
+            ->save(path_dirname($this->projectDir));
 
         foreach($containersUp as $name => $config) {
             $container = $config['port'] == null 
@@ -66,16 +66,14 @@ class ProjectFactory
 
     private function makeDir()
     {
-        $parent = dirname($this->projectDir);
+        $parent = path_dirname($this->projectDir);
         if (\is_writable($parent) == false) {
             cli_error("Não há permissão para escrever no diretório $parent", true);
         }
 
-        if (is_dir($this->projectDir) == false) {
-            mkdir($this->projectDir, 0777, true);
-            chmod($this->projectDir, 0777);
+        if (has_dir($this->projectDir) == false) {
+            make_dir($this->projectDir, 0777, true);
         }
-        
     }
 
     // private function removeFiles()
@@ -83,7 +81,7 @@ class ProjectFactory
     //     shell_exec("rm -Rf {$this->projectDir}");
     //     // \rmdir($this->projectDir);
 
-    //     $parentDir = dirname($this->projectDir);
+    //     $parentDir = path_dirname($this->projectDir);
     //     unlink($parentDir . DIRECTORY_SEPARATOR . 'docker-compose.yaml');
     // }
 

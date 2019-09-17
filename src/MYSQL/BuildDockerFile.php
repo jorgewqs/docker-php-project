@@ -13,7 +13,7 @@ class BuildDockerFile extends \Dpp\BuildDockerFile
     protected function copyFiles($destiny)
     {
         $conf = __DIR__ . DIRECTORY_SEPARATOR . 'mysql.cnf';
-        copy($conf, $destiny . DIRECTORY_SEPARATOR . 'mysql.cnf');
+        copy_file($conf, $destiny . DIRECTORY_SEPARATOR . 'mysql.cnf');
     }
 
     protected function getVersionString()

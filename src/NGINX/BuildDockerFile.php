@@ -12,15 +12,14 @@ class BuildDockerFile extends \Dpp\BuildDockerFile
 
     protected function copyFiles($destiny)
     {
+        $conf = __DIR__ . DIRECTORY_SEPARATOR . 'nginx-noredir.conf';
+
         $redir = $this->getParam('redir-index');
         if ($redir != null && (bool) $redir !== false) {
             $conf = __DIR__ . DIRECTORY_SEPARATOR . 'nginx-redir.conf';
-        } else {
-            $conf = __DIR__ . DIRECTORY_SEPARATOR . 'nginx-noredir.conf';
         }
 
-        $workdir = $this->getParam('workdir');
-
+        $workdir = $this->getParam('workdir', '/var/www/html');
         $contents = path_get_contents($conf);
         $contents = str_replace('{{ project_path }}', $workdir, $contents);
 

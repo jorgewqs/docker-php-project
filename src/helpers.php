@@ -248,6 +248,11 @@ function path_basename($path)
     return basename($path);
 }
 
+function path_dirname($path)
+{
+    return dirname($path);
+}
+
 function shutdown($status)
 {
     exit($status);
@@ -256,4 +261,31 @@ function shutdown($status)
 function has_file($path)
 {
     return is_file($path);
+}
+
+function has_dir($path)
+{
+    return is_dir($path);
+}
+
+function make_dir($path, $mode = 0777, $recursive = false)
+{
+    $result = mkdir($path, $mode, $recursive);
+    change_permissions($path, $mode);
+    return $result;
+}
+
+function change_permissions($path, $mode)
+{
+    return chmod($path, $mode);
+}
+
+function change_dir($notation)
+{
+    chdir($notation);
+}
+
+function copy_file($origin, $destiny)
+{
+    copy($origin, $destiny);
 }

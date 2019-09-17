@@ -21,7 +21,6 @@ class BuildBashrc extends Build
                     $php = new PHP\BuildDockerFile($config);
                     $name = $php->getParam('name', 'php');
                     $workdir = $php->getParam('workdir', '/var/www/html');
-                    $versionString = $php->getVersionString();
 
                     $this->add('php:', 1);
                     $this->add("container_name: {$name}", 2);
@@ -100,7 +99,7 @@ class BuildBashrc extends Build
 
     }
 
-    protected function getFilename($sufix = null)
+    protected function getFilename()
     {
         return 'docker-compose.yml';
     }

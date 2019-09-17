@@ -56,10 +56,10 @@ class BuildDockerFile extends \Dpp\BuildDockerFile
     {
         // !!! A partir do zero !!!
         // $overrides = __DIR__ . DIRECTORY_SEPARATOR . 'php-overrides.conf';
-        // copy($overrides, $destiny . DIRECTORY_SEPARATOR . 'php-overrides.conf');
+        // copy_file($overrides, $destiny . DIRECTORY_SEPARATOR . 'php-overrides.conf');
 
         $ini = __DIR__ . DIRECTORY_SEPARATOR . 'php.ini';
-        copy($ini, $destiny . DIRECTORY_SEPARATOR . 'php.ini');
+        copy_file($ini, $destiny . DIRECTORY_SEPARATOR . 'php.ini');
     }
 
     public function getVersionString()

@@ -12,8 +12,8 @@ Este é um pacote de software para distribuições Linux baseadas em Debian que 
 
 Para usar:
 
-1. Faça o download e instale a última versão do pacote [docker-php-project_2.2.1_all.deb](https://github.com/ricardopedias/docker-php-project/raw/master/dist/docker-php-project_2.2.1_all.deb);
-2. Abra o terminal e execute o comando "php-project" em qualquer lugar para gerar projetos do Docker :)
+* Faça o download e instale a última versão do pacote [docker-php-project_2.2.1_all.deb](https://github.com/ricardopedias/docker-php-project/raw/master/dist/docker-php-project_2.2.1_all.deb);
+* Abra o terminal e execute o comando "php-project" em qualquer lugar para gerar projetos do Docker :)
 
 ## 1. Objetivo
 
@@ -75,11 +75,11 @@ task('test')
 
 Até o presente momento, o Docker PHP Project suporta as seguintes ferramentas:
 
-| Componente | Versão                   |
-| :--------- | :----------------------- | 
-| nginx	     | 1.15 e 1.16              | 
-| mysql	     | 5.5, 5.6, 5.7 e 8        |
-| php	     | 5.6, 7.0, 7.1, 7.2 e 7.3 |
+| Componente | Versão                    |
+| :--------- | :------------------------ | 
+| nginx	     | 1.15 e 1.16               | 
+| mysql	     | 5.5, 5.6, 5.7 e 8         |
+| php	     | 5.6, 7.0, 7.1, 7.2 e 7.3  |
 
 ### 2.4. Tarefas
 
@@ -92,4 +92,3 @@ task('permissoes')
     ->run('chmod -Rf 755 /storage')
     ->run('php artisan migrate');
 ```
-
