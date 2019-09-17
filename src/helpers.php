@@ -239,12 +239,21 @@ function task($name)
 
 function path_get_contents($path)
 {
-    return file_get_contents($path);
+    $handle = fopen($path, "r");
+    $contents = fread($handle, filesize($path));
+    fclose($handle);
+    return $contents;
 }
 
 function path_put_contents($path, $contents)
 {
-    return file_put_contents($path, $contents);
+    $handle = (has_file($path))
+        ? fopen($path,'w')
+        : fopen($path,'x');
+    
+    fwrite($handle, $contents);
+    fclose($handle);
+    return true;
 }
 
 function path_basename($path)
