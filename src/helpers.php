@@ -187,22 +187,21 @@ function load_project_file()
 
 function show_help()
 {
-    $space = "  ";
     cli_out("Docker PHP Project " . cli_color('green', version()));
     cli_out(PHP_EOL);
     cli_out( cli_color('yellow', "Usage:") );
     cli_out(PHP_EOL);
-    cli_out( "${space}php-project [options] [arguments]" );
+    cli_out( "  php-project [options] [arguments]" );
     cli_out(PHP_EOL);
     cli_out(PHP_EOL);
     
     cli_out( cli_color('yellow', "Options:") );
     cli_out(PHP_EOL);
-    cli_out( cli_color('green', "${space}init      ") . "Inicia um novo projeto no diretório atual" );
+    cli_out( cli_color('green', "  init      ") . "Inicia um novo projeto no diretório atual" );
     cli_out(PHP_EOL);
-    cli_out( cli_color('green', "${space}up        ") . "Constrói e sobe os containers do projeto" );
+    cli_out( cli_color('green', "  up        ") . "Constrói e sobe os containers do projeto" );
     cli_out(PHP_EOL);
-    cli_out( cli_color('green', "${space}down      ") . "Para a execução dos contaners" );
+    cli_out( cli_color('green', "  down      ") . "Para a execução dos contaners" );
     cli_out(PHP_EOL);
 }
 

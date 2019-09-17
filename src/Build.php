@@ -155,9 +155,9 @@ abstract class Build
         cli_warn($message);
     }
 
-    public function ok($message)
+    public function success($message)
     {
-        cliok($message);
+        cli_ok($message);
     }
     
 }

@@ -5,10 +5,10 @@ abstract class BuildDockerFile extends \Dpp\Build
 {
     public function getParam($name, $default = null)
     {
+        $param = $this->getDefaultParam($name);
+
         if (parent::hasParam($name)) {
             $param = parent::getParam($name);
-        } else {
-            $param = $this->getDefaultParam($name);
         }
 
         return $param ?? $default;

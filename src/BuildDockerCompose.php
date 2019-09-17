@@ -96,7 +96,7 @@ class BuildDockerCompose extends Build
         }
     }
 
-    protected function getFilename($sufix = null)
+    protected function getFilename()
     {
         return 'docker-compose.yml';
     }
