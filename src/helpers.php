@@ -165,7 +165,7 @@ function generate_project_file()
     $contents = str_replace("->param('---name---', 'app')", "->param('name', 'app_{$basename}')", $contents);
     $contents = str_replace("->param('---name---', 'webserver')", "->param('name', 'webserver_{$basename}')", $contents);
     $contents = str_replace("->param('---name---', 'database')", "->param('name', 'database_{$basename}')", $contents);
-    file_put_contents($destiny, $contents);
+    path_put_contents($destiny, $contents);
 
     if (is_file($destiny)) {
         cli_step_ok('OK', '');
@@ -239,21 +239,12 @@ function task($name)
 
 function path_get_contents($path)
 {
-    $handle = fopen($path, "r");
-    $contents = fread($handle, filesize($path));
-    fclose($handle);
-    return $contents;
+    return file_get_contents($path);
 }
 
 function path_put_contents($path, $contents)
 {
-    $handle = (has_file($path))
-        ? fopen($path,'w')
-        : fopen($path,'x');
-    
-    fwrite($handle, $contents);
-    fclose($handle);
-    return true;
+    return file_put_contents($path, $contents);
 }
 
 function path_basename($path)
