@@ -79,22 +79,22 @@ Até o presente momento, o Docker PHP Project suporta as seguintes ferramentas:
 
 #### MySQL
 
-- [x] 5.5
-- [x] 5.6
-- [x] 5.7
+*   [x] 5.5
+*   [x] 5.6
+*   [x] 5.7
 
 #### NGINX
 
-- [x] 1.16
-- [x] 1.17
+*   [x] 1.16
+*   [x] 1.17
 
 #### PHP
 
-- [x] 5.6
-- [x] 7.0
-- [x] 7.1
-- [x] 7.2
-- [x] 7.3
+*   [x] 5.6
+*   [x] 7.0
+*   [x] 7.1
+*   [x] 7.2
+*   [x] 7.3
 
 ### 2.4. Tarefas
 
