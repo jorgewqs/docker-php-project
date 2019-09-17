@@ -12,4 +12,9 @@ class BuildBashrc extends Build
         Register::getInstance()->all();
         path_basename($this->getProjectDir());
     }
+
+    protected function getFilename()
+    {
+        return 'bashrc';
+    }
 }

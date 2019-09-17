@@ -51,7 +51,7 @@ class ProjectFactory
         foreach($containersUp as $name => $config) {
             $container = $config['port'] == null 
                 ? "{$name}" 
-                : "{$name}:{$port}";
+                : "{$name}:{$config['port']}";
             cli_step_info("Container", $container);
         }
 

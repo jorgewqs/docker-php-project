@@ -3,6 +3,11 @@ namespace Dpp;
 
 class BuildDockerCompose extends Build
 {
+    protected function getFilename()
+    {
+        return 'docker-compose.yml';
+    }
+    
     protected function handle()
     {
         $this->add('version: "3.1"');
@@ -94,10 +99,5 @@ class BuildDockerCompose extends Build
 
             }
         }
-    }
-
-    protected function getFilename()
-    {
-        return 'docker-compose.yml';
     }
 }

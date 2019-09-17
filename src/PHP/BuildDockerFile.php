@@ -3,6 +3,11 @@ namespace Dpp\PHP;
 
 class BuildDockerFile extends \Dpp\BuildDockerFile
 {
+    protected function getFilename()
+    {
+        return 'DockerfilePHP';
+    }
+
     protected function handle()
     {
         $version = $this->getVersion();

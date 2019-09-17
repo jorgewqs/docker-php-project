@@ -3,6 +3,11 @@ namespace Dpp\MYSQL;
 
 class BuildDockerFile extends \Dpp\BuildDockerFile
 {
+    protected function getFilename()
+    {
+        return 'DockerfileMYSQL';
+    }
+
     protected function handle()
     {
         $versionString = $this->getVersionString();

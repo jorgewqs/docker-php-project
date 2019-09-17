@@ -3,6 +3,11 @@ namespace Dpp\NGINX;
 
 class BuildDockerFile extends \Dpp\BuildDockerFile
 {
+    protected function getFilename()
+    {
+        return 'DockerfileNGINX';
+    }
+
     protected function handle()
     {
         $versionString = $this->getVersionString();

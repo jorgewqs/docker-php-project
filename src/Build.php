@@ -13,6 +13,8 @@ abstract class Build
         $this->moduleConfig = $moduleConfig;
     }
 
+    abstract protected function getFilename();
+
     abstract protected function handle();
 
     public function setProjectDir($path)
@@ -39,18 +41,9 @@ abstract class Build
         return implode(PHP_EOL, $this->data); 
     }
 
-    protected function getFilename($sufix = null)
-    {
-        return 'Dockerfile' . $sufix;
-    }
-
     public function save($distiny)
     {
-        $called = explode('\\', get_called_class());
-        $sufix = $called[1];
-
-        $filename = $distiny . DIRECTORY_SEPARATOR . $this->getFilename($sufix);
-
+        $filename = $distiny . DIRECTORY_SEPARATOR . $this->getFilename();
         $contents = $this->render();
         path_put_contents($filename, $contents);
     }
