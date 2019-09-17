@@ -243,6 +243,11 @@ function path_get_contents($path)
     return file_get_contents($path);
 }
 
+function path_put_contents($path, $contents)
+{
+    return file_put_contents($path, $contents);
+}
+
 function path_basename($path)
 {
     return basename($path);
@@ -288,4 +293,9 @@ function change_dir($notation)
 function copy_file($origin, $destiny)
 {
     copy($origin, $destiny);
+}
+
+function remove_file($path)
+{
+    unlink($path);
 }

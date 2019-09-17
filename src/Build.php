@@ -52,7 +52,7 @@ abstract class Build
         $filename = $distiny . DIRECTORY_SEPARATOR . $this->getFilename($sufix);
 
         $contents = $this->render();
-        file_put_contents($filename, $contents);
+        path_put_contents($filename, $contents);
     }
 
     // Consultas

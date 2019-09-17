@@ -11,15 +11,11 @@
 # https://debian-handbook.info/browse/pt-BR/stable/sect.building-first-package.html#id-1.18.5.2
 # 
 
-RED='\033[0;31m';
-GREEN='\033[0;32m';
 BLUE='\e[34m';
 NC='\033[0m';
 
 PATH_ROOT=$(cd "$(dirname "$0")" && pwd);
 PATH_DIST="$PATH_ROOT/dist";
-PHAR_FILE="$PATH_ROOT/dist/php-project.phar";
-
 
 # se a tag possuir o "v" no inicio
 VERSION=$(git describe --tags $(git rev-list --tags --max-count=1));

@@ -82,7 +82,7 @@ class ProjectFactory
     //     // \rmdir($this->projectDir);
 
     //     $parentDir = path_dirname($this->projectDir);
-    //     unlink($parentDir . DIRECTORY_SEPARATOR . 'docker-compose.yaml');
+    //     remove_file($parentDir . DIRECTORY_SEPARATOR . 'docker-compose.yaml');
     // }
 
 }

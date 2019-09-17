@@ -7,14 +7,12 @@
 # Este programa compila um novo pacote e reinstala no sistema
 # 
 
-RED='\033[0;31m';
 GREEN='\033[0;32m';
 BLUE='\e[34m';
 NC='\033[0m';
 
 PATH_ROOT=$(cd "$(dirname "$0")" && pwd);
 PATH_DIST="$PATH_ROOT/dist";
-PHAR_FILE="$PATH_ROOT/dist/php-project.phar";
 
 echo -e "${BLUE}→ Removendo pacote atual${NC}";
 sudo dpkg -r docker-php-project;

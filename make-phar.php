@@ -30,11 +30,11 @@ if ((bool) ini_get('phar.readonly') == true || ini_get('phar.readonly') == 'On')
 }
 
 $phar_file = PATH_DIST . DIRECTORY_SEPARATOR . PHAR_NAME;
-if (file_exists($phar_file)) {
-    unlink($phar_file);
+if (has_file($phar_file)) {
+    remove_file($phar_file);
 }
-if (file_exists($phar_file . '.gz')) {
-    unlink($phar_file . '.gz');
+if (has_file($phar_file . '.gz')) {
+    remove_file($phar_file . '.gz');
 }
 
 $p = new Phar($phar_file);

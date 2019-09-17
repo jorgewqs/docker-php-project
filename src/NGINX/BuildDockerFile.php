@@ -23,7 +23,7 @@ class BuildDockerFile extends \Dpp\BuildDockerFile
         $contents = path_get_contents($conf);
         $contents = str_replace('{{ project_path }}', $workdir, $contents);
 
-        file_put_contents($destiny . DIRECTORY_SEPARATOR . 'nginx.conf', $contents);
+        path_put_contents($destiny . DIRECTORY_SEPARATOR . 'nginx.conf', $contents);
     }
 
     protected function getVersionString()
