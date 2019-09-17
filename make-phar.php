@@ -19,7 +19,7 @@ define('PATH_DIST', PATH_ROOT . DIRECTORY_SEPARATOR . 'dist');
 define('PATH_SRC', PATH_ROOT . DIRECTORY_SEPARATOR . 'src');
 define('PHAR_NAME', 'php-project.phar');
 
-require __DIR__.'/src/helpers.php';
+require 'src/helpers.php';
 
 check_php_version();
 
@@ -49,4 +49,3 @@ $p->setDefaultStub('Main.php', '/Main.php');
 $p->compress(Phar::GZ);
 
 cli_ok("Arquivo " . PHAR_NAME . " criado com sucesso" . PHP_EOL);
-exit(0);

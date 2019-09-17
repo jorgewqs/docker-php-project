@@ -12,8 +12,8 @@ Este é um pacote de software para distribuições Linux baseadas em Debian que 
 
 Para usar:
 
- 1. Faça o download e instale a última versão do pacote [docker-php-project_2.2.0_all.deb](https://github.com/ricardopedias/docker-php-project/raw/master/dist/docker-php-project_2.2.0_all.deb);
- 2. Abra o terminal e execute o comando "php-project" em qualquer lugar para gerar projetos do Docker :)
+1. Faça o download e instale a última versão do pacote [docker-php-project_2.2.0_all.deb](https://github.com/ricardopedias/docker-php-project/raw/master/dist/docker-php-project_2.2.0_all.deb);
+2. Abra o terminal e execute o comando "php-project" em qualquer lugar para gerar projetos do Docker :)
 
 ## 1. Objetivo
 
@@ -27,13 +27,13 @@ ser adicionadas para facilitar ainda mais o processo de configuração.
 Para executar a infraestrutura do projeto, é necessário existir um arquivo chamado "docker.php" no diretório atual.
 Para criá-lo basta executar:
 
-```
+```sh
 $ php-project init
 ```
 
 Para gerar os arquivos do Docker (docker-compose.yml, .docker-project/*) e subir so containers do projeto:
 
-```
+```sh
 $ php-project up
 ```
 
@@ -42,7 +42,7 @@ $ php-project up
 O arquivo **docker.php** é a porta de entrada para uma fácil configuração. Quando um projeto é iniciado,
 o arquivo padrão contém as seguintes configurações.
 
-```
+```php
 php('7.3')
     ->param('---name---', 'app')
     ->extension('mysql')
@@ -75,18 +75,18 @@ task('test')
 
 Até o presente momento, o Docker PHP Project suporta as seguintes ferramentas:
 
-Componente | Versão
------------|---------------
-nginx	   | 1.15 e 1.16
-mysql	   | 5.5, 5.6, 5.7 e 8
-php	       | 5.6, 7.0, 7.1, 7.2 e 7.3
+| Componente | Versão                   |
+| :--------- | :----------------------- | 
+| nginx	     | 1.15 e 1.16              | 
+| mysql	     | 5.5, 5.6, 5.7 e 8        |
+| php	     | 5.6, 7.0, 7.1, 7.2 e 7.3 |
 
 ### 2.4. Tarefas
 
 Além de configurar e executar automaticamente os containers, é possível 
 atribuir tarefas para o projeto. Todas as vezes que o projeto subir, essas tarefas serão executadas:
 
-```
+```php
 task('permissoes')
     ->run('chmod -Rf 755 /bootstrap/cache');
     ->run('chmod -Rf 755 /storage')

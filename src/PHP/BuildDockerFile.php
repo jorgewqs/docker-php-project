@@ -7,7 +7,7 @@ class BuildDockerFile extends \Dpp\BuildDockerFile
     {
         $version = $this->getVersion();
         
-        if (intval($version) == 70) {
+        if ( (int) $version == 70) {
             $version = 7;
         }
 
@@ -29,30 +29,23 @@ class BuildDockerFile extends \Dpp\BuildDockerFile
         $this->add('RUN apt-get update;');  
         $this->add('RUN apt-get -y --no-install-recommends install ca-certificates curl unzip;');  
 
-        //
         $this->addSeparator('PHP');
-        //
         $packages = implode(' ', $this->getPackages());
         $this->add("RUN apt-get -y --no-install-recommends install $packages;");  
 
-        //
         $this->addSeparator('Ferramentas adicionais');
-        //
         $this->insertTools();
 
         $this->add('RUN apt-get clean; rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /usr/share/doc/*;');
 
         $this->addSeparator('Configurações finais');
-        $projectDir = basename($this->getProjectDir());
-        $versionString = $this->getVersionString();
         $this->copyFiles($this->getProjectDir());
-
-        
 
         /*
         // !!! A partir do zero !!!
         // Os pacotes PHP-FPM precisam de um empurrão para torná-los compatíveis com o docker    
-        // $this->add("COPY php-overrides.conf /etc/php/{$versionString}/fpm/pool.d/z-overrides.conf");
+        $versionString = $this->getVersionString();
+        $this->add("COPY php-overrides.conf /etc/php/{$versionString}/fpm/pool.d/z-overrides.conf");
         $this->add('STOPSIGNAL SIGQUIT');
         $this->add("CMD [\"/usr/sbin/php-fpm{$versionString}\", \"-O\" ]"); 
         $this->add('EXPOSE 9000'); 
@@ -96,31 +89,29 @@ class BuildDockerFile extends \Dpp\BuildDockerFile
 
     public function getPackages()
     {
-        $version = $this->getVersion();
-
+        $packages         = [];
+        $version          = $this->getVersion();
         $configExtensions = parent::getExtensions();
-
-        $packages = [];
 
         switch($version){
             case 56: 
-                $prefix = 'php5'; 
+                // $prefix = 'php5'; 
                 $extensions = $this->getPhp56Extensions();
                 break;
             case 70: 
-                $prefix = 'php7.0'; 
+                // $prefix = 'php7.0'; 
                 $extensions = $this->getPhp70Extensions();
                 break;
             case 71: 
-                $prefix = 'php7.1'; 
+                // $prefix = 'php7.1'; 
                 $extensions = $this->getPhp71Extensions();
                 break;
             case 72: 
-                $prefix = 'php7.2'; 
+                // $prefix = 'php7.2'; 
                 $extensions = $this->getPhp72Extensions();
                 break;
             case 73: 
-                $prefix = 'php7.3'; 
+                // $prefix = 'php7.3'; 
                 $extensions = $this->getPhp73Extensions();
                 break;
         }
@@ -139,20 +130,17 @@ class BuildDockerFile extends \Dpp\BuildDockerFile
         }
 
         if ($all === true) {
-
             foreach($extensions as $index => $name) {
                 $packages[] = $name;
             }
-
             return $packages;
         } 
 
         foreach($configExtensions as $index => $name) {
-            if ( isset($extensions[$name])) {
-                $packages[] = $extensions[$name];
-            } else {
+            if (! isset($extensions[$name])) {
                 $this->warn("A extensão {$name} não está disponível para esta versão do PHP!");
             }
+            $packages[] = $extensions[$name];
         }
 
         return $packages;

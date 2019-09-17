@@ -1,9 +1,32 @@
 <?php
 
+function url_get_contents ($url) 
+{
+    if (! function_exists('curl_init') ) {
+        die( 'The cURL library is not installed.' );
+    }
+
+    $ch = curl_init();
+    curl_setopt( $ch, CURLOPT_URL, $url );
+    curl_setopt( $ch, CURLOPT_RETURNTRANSFER, true );
+    $output = curl_exec( $ch );
+    curl_close( $ch );
+    return $output;
+}
+
+function path_get_contents($path)
+{
+    return file_get_contents($path);
+}
+
+function path_basename($path)
+{
+    return basename($path);
+}
 
 function version()
 {
-    return file_get_contents(__DIR__ . DIRECTORY_SEPARATOR . 'version.txt');
+    return path_get_contents(__DIR__ . DIRECTORY_SEPARATOR . 'version.txt');
 }
 
 function cli_out($message)
@@ -155,7 +178,7 @@ function generate_project_file()
     $destiny = getcwd() . '/docker.php';
 
     $basename = \Dpp\Register::getInstance()->getDefaultParam('basename');
-    $contents = file_get_contents($source);
+    $contents = path_get_contents($source);
     $contents = str_replace("->param('---name---', 'app')", "->param('name', 'app_{$basename}')", $contents);
     $contents = str_replace("->param('---name---', 'webserver')", "->param('name', 'webserver_{$basename}')", $contents);
     $contents = str_replace("->param('---name---', 'database')", "->param('name', 'database_{$basename}')", $contents);

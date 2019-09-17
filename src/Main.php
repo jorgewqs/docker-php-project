@@ -1,18 +1,23 @@
 <?php
 namespace Dpp;
 
-require __DIR__.'/helpers.php';
-require __DIR__.'/Register.php';
-require __DIR__.'/Module.php';
-require __DIR__.'/ProjectFactory.php';
-require __DIR__.'/ProjectTasks.php';
-require __DIR__.'/Build.php';
-require __DIR__.'/BuildDockerFile.php';
-require __DIR__.'/BuildDockerCompose.php';
-require __DIR__.'/Task.php';
-require __DIR__.'/PHP/BuildDockerFile.php';
-require __DIR__.'/NGINX/BuildDockerFile.php';
-require __DIR__.'/MYSQL/BuildDockerFile.php';
+$libs = [
+    'helpers.php',
+    'Register.php',
+    'Module.php',
+    'ProjectFactory.php',
+    'ProjectTasks.php',
+    'Build.php',
+    'BuildDockerFile.php',
+    'BuildDockerCompose.php',
+    'Task.php',
+    'PHP/BuildDockerFile.php',
+    'NGINX/BuildDockerFile.php',
+    'MYSQL/BuildDockerFile.php',
+];
+foreach($libs as $item) {
+    require $item;
+}
 
 check_php_version();
 
@@ -21,14 +26,14 @@ $task      = $argv[2] ?? null;
 
 // seta parâmetros padrões
 set('workdir', '/project');
-set('basename', basename(getcwd()));
+set('basename', path_basename(getcwd()));
 
 switch($operation) {
     case 'up':
         if (load_project_file() == false){
             cli_error('O arquivo "docker.php" não foi encontrado neste diretório' . PHP_EOL);
             cli_out('Use "php-project ini" para gerá-lo.' . PHP_EOL);
-            exit(1);
+            return;
         }
         (new ProjectFactory)->run();
         break;
@@ -44,7 +49,7 @@ switch($operation) {
         if (load_project_file() == false){
             cli_error('O arquivo "docker.php" não foi encontrado neste diretório' . PHP_EOL);
             cli_out('Use "php-project ini" para gerá-lo.' . PHP_EOL);
-            exit(1);
+            return;
         }
         (new ProjectTasks)->run();
         break;

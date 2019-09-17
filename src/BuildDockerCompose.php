@@ -11,7 +11,7 @@ class BuildDockerCompose extends Build
 
         $containers = Register::getInstance()->all();
 
-        $projectDir = basename($this->getProjectDir());
+        $projectDir = path_basename($this->getProjectDir());
 
         foreach($containers as $name => $config) {
 

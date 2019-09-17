@@ -21,7 +21,7 @@ class BuildDockerFile extends \Dpp\BuildDockerFile
 
         $workdir = $this->getParam('workdir');
 
-        $contents = file_get_contents($conf);
+        $contents = path_get_contents($conf);
         $contents = str_replace('{{ project_path }}', $workdir, $contents);
 
         file_put_contents($destiny . DIRECTORY_SEPARATOR . 'nginx.conf', $contents);
