@@ -42,9 +42,9 @@ Depends: php-cli
 Description: Ferramenta para gerar projetos Docker para o PHP
 EOF
 
-sudo cp $PATH_DIST/php-project.phar /usr/bin/php-project.phar;
-sudo cp $PATH_DIST/php-project.sh /usr/bin/php-project;
-sudo chmod a+x /usr/bin/php-project;
+sudo cp $PATH_DIST/php-project.phar $PATH_DIST/docker-php-project/usr/bin/php-project.phar;
+sudo cp $PATH_DIST/php-project.sh $PATH_DIST/docker-php-project/usr/bin/php-project;
+sudo chmod a+x $PATH_DIST/docker-php-project/usr/bin/php-project;
 
 # gera o pacote deb
 dpkg-deb -b $PATH_DIST/docker-php-project/ $PATH_DIST
