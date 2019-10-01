@@ -39,9 +39,6 @@ switch($operation) {
         (new ProjectFactory)->run();
         break;
 
-    case 'down':
-        break;
-
     case 'init':
         generate_project_file();
         break;
@@ -51,7 +48,11 @@ switch($operation) {
         break;
 
     case 'app':
-        return Register::getInstance()->getParam('php', 'name');
+        echo Register::getInstance()->getParam('php', 'name');
+        break;
+    
+    case 'bash':
+    case 'down':
         break;
 
     default:
