@@ -39,6 +39,12 @@ Para gerar os arquivos do Docker (docker-compose.yml, .docker-project/*) e subir
 $ php-project up
 ```
 
+Para acessar o terminal da aplicação: 
+
+```sh
+$ php-project bash
+```
+
 ### 2.2. O docker.php
 
 O arquivo **docker.php** é a porta de entrada para uma fácil configuração. Quando um projeto é iniciado,
