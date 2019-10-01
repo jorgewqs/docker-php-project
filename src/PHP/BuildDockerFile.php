@@ -65,6 +65,9 @@ class BuildDockerFile extends \Dpp\BuildDockerFile
 
         $ini = __DIR__ . DIRECTORY_SEPARATOR . 'php.ini';
         copy_file($ini, $destiny . DIRECTORY_SEPARATOR . 'php.ini');
+
+        $bashrc = __DIR__ . DIRECTORY_SEPARATOR . 'bashrc';
+        copy_file($bashrc, $destiny . DIRECTORY_SEPARATOR . 'bashrc');
     }
 
     public function getVersionString()

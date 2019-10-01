@@ -25,7 +25,7 @@ $operation = $argv[1] ?? null;
 $task      = $argv[2] ?? null;
 
 // seta parâmetros padrões
-set('workdir', '/project');
+set('workdir', '/app');
 set('basename', path_basename(getcwd()));
 
 if (in_array($operation, ['up', 'tasks', 'app']) && load_project_file() == false) {

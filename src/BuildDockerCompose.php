@@ -35,6 +35,8 @@ class BuildDockerCompose extends Build
                     $this->add("volumes:", 2);
                         $this->add("- ./:{$workdir}", 3);
                         $this->add("- ./{$projectDir}/php.ini:/usr/local/etc/php/conf.d/local.ini", 3);
+                        $this->add("- ./{$projectDir}/bashrc:/root/.bashrc", 3);
+                        $this->add("- ~/.bash_history:/root/.bash_history", 3);
                     $this->add(' ');
                     break;
 
