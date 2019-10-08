@@ -56,16 +56,44 @@ if [ -n "$force_color_prompt" ]; then
     fi
 fi
 
-parse_git_branch() {
-    git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
-}
-
 if [ "$color_prompt" = yes ]; then
-    # PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
-    PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@php-project\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\[\033[32m\]$(parse_git_branch)\[\033[00m\] \$ '
+
+    # https://misc.flogisoft.com/bash/tip_colors_and_formatting
+
+    PATH_SEPARATOR=" 〉"
+    PATH_HOME=" ~"
+
+    # PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\[\033[32m\]$(parse_git_branch)\[\033[00m\]\$ '
+    PS1='${debian_chroot:+($debian_chroot)}'
+
+    # usuário
+    # PS1="$PS1\e[104m \e[97m \u@\h \e[39m \e[49m"
+    PS1="$PS1\e[1m\e[44m\e[97m \u \e[39m\e[49m\e[0m"
+
+    # caminho
+    PS1="$PS1\e[100m\e[38;5;250m"
+    PS1="$PS1$(echo -e '$(echo $PWD | sed "s=$HOME=$PATH_HOME=" | sed "s/\//$PATH_SEPARATOR/g" )'  )"
+    #PS1="$PS1$(echo -e '$(echo ${PWD//\//$PATH_SEPARATOR}")')"
+    PS1="$PS1 \e[39m\e[49m"
+
+    # GIT bash integration
+    if [[ -e /usr/lib/git-core/git-sh-prompt ]]; then
+
+        source /usr/lib/git-core/git-sh-prompt
+
+        # export GIT_PS1_SHOWCOLORHINTS=true
+        # export GIT_PS1_SHOWDIRTYSTATE=true
+        # export GIT_PS1_SHOWUNTRACKEDFILES=true
+        # export GIT_PS1_SHOWUPSTREAM="auto"
+
+        PS1="$PS1\e[48;5;237m\e[38;5;70m"
+        PS1="$PS1\$(__git_ps1 ' ᚛ %s ')"
+        PS1="$PS1\e[39m\e[49m "
+
+    fi
+
 else
-    # PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
-    PS1='${debian_chroot:+($debian_chroot)}\u@php-project:\w$(parse_git_branch) \$ '
+    PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
 fi
 unset color_prompt force_color_prompt
 
