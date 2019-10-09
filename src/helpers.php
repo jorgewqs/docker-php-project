@@ -215,6 +215,11 @@ function defaults()
     return (new Dpp\Module('defaults'));
 }
 
+function bash()
+{
+    return (new Dpp\Module('bash'));
+}
+
 function php($version)
 {
     return (new Dpp\Module('php'))->version($version);
