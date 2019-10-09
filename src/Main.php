@@ -7,6 +7,7 @@ $libs = [
     'Module.php',
     'ProjectFactory.php',
     'ProjectTasks.php',
+    'SetupConfig.php',
     'Build.php',
     'BuildDockerFile.php',
     'BuildDockerCompose.php',
@@ -30,11 +31,15 @@ set('basename', path_basename(getcwd()));
 
 if (in_array($operation, ['up', 'tasks', 'app']) && load_project_file() == false) {
     cli_error('O arquivo "docker.php" não foi encontrado neste diretório' . PHP_EOL);
-    cli_out('Use "php-project ini" para gerá-lo.' . PHP_EOL);
+    cli_out('Use "php-project init" para gerá-lo.' . PHP_EOL);
     return;
 }
 
 switch($operation) {
+    case 'setup-config':
+        (new SetupConfig)->run();
+        break;
+
     case 'up':
         (new ProjectFactory)->run();
         break;

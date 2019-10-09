@@ -13,7 +13,15 @@ if [ "$?" = "1" ]; then
     exit 1;
 fi
 
-if [ "$1" = "up" ]; then
+FORCE_REBUILD=$(php /usr/bin/php-project.phar setup-config;)
+
+if [ "$FORCE_REBUILD" != "no" ] && [ "$1" = "up" ]; then
+    echo -e $FORCE_REBUILD
+    docker-compose up --build -d
+    php /usr/bin/php-project.phar tasks;
+fi
+
+if [ "$FORCE_REBUILD" = "no" ] && [ "$1" = "up" ]; then
     docker-compose up -d
     php /usr/bin/php-project.phar tasks;
 fi
