@@ -15,14 +15,14 @@ class ProjectFactory
     {
         $this->makeDir();
 
-        cli_step_run('Subindo containers para ', '"' . Register::getInstance()->getDefaultParam('basename') . '"');
+        cli_step_run('Subindo conteiners para ', '"' . Register::getInstance()->getDefaultParam('basename') . '"');
 
         $containers = Register::getInstance()->all();
 
         $containersUp = [];
         foreach($containers as $name => $config) {
 
-            if ($name === 'tasks') {
+            if (!has_dir(\strtoupper($name))) {
                 continue;
             }
 
@@ -52,7 +52,7 @@ class ProjectFactory
             $container = $config['port'] == null 
                 ? "{$name}" 
                 : "{$name}:{$config['port']}";
-            cli_step_info("Container", $container);
+            cli_step_info("Conteiner", $container);
         }
 
         // TODO 
