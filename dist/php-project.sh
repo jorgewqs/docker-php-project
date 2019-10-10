@@ -46,5 +46,6 @@ if [ "$OPERATION" = "up" ]; then
 fi
 
 if [ "$OPERATION" = "bash" ]; then
-    docker exec -it $APP_NAME bash
+    USER=$(whoami) 
+    docker exec -it --user $USER $APP_NAME bash
 fi

@@ -14,7 +14,7 @@ class ProjectTasks
     public function run()
     {
         // Conteiners executando
-        cli_step_ok('Conteiners executando', '');
+        cli_step_ok('Conteiners ativos', '');
 
         $tasks = Register::getInstance()->getTasks();
         $stop = false;
