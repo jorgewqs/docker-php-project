@@ -13,27 +13,38 @@ if [ "$?" = "1" ]; then
     exit 1;
 fi
 
+OPERATION=$1
+
+if [ "$OPERATION" = "down" ] || [ "$OPERATION" = "reload" ]; then
+    docker-compose down
+fi
+
+if [ "$OPERATION" = "reload" ]; then
+    OPERATION='up'
+fi
+
 FORCE_REBUILD='no';
-if [ "$1" = "up" ]; then
+if [ "$OPERATION" = "up" ]; then
     FORCE_REBUILD=$(php /usr/bin/php-project.phar setup-config);
 fi
 
-if [ "$FORCE_REBUILD" != "no" ] && [ "$1" = "up" ]; then
+if [ "$FORCE_REBUILD" != "no" ] && [ "$OPERATION" = "up" ]; then
     echo -e $FORCE_REBUILD
     docker-compose up --build -d
     php /usr/bin/php-project.phar tasks;
 fi
 
-if [ "$FORCE_REBUILD" = "no" ] && [ "$1" = "up" ]; then
+if [ "$FORCE_REBUILD" = "no" ] && [ "$OPERATION" = "up" ]; then
     docker-compose up -d
     php /usr/bin/php-project.phar tasks;
 fi
 
-if [ "$1" = "down" ]; then
-    docker-compose down
+APP_NAME=$(php /usr/bin/php-project.phar app;)
+
+if [ "$OPERATION" = "up" ]; then
+    docker exec -it $APP_NAME bash /root/boot.sh
 fi
 
-if [ "$1" = "bash" ]; then
-    APP_NAME=$(php /usr/bin/php-project.phar app;)
+if [ "$OPERATION" = "bash" ]; then
     docker exec -it $APP_NAME bash
 fi

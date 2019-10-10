@@ -1,7 +1,20 @@
-$CURRENT_DIR=$PWD
-cd /app; git config user.name 'XXX'
-cd /app; git config user.email 'xxx@xxx.com.br'
-cd $CURRENT_DIR
+#!/bin/bash
+
+#
+# Autor: Ricardo Pereira <contato@ricardopdias.com.br>
+# Site: https://www.ricardopdias.com.br
+# 
+# Este programa faz as configurações necessárias para compatibilidade 
+# e personalização do projeto dentro do docker
+#
+# 
+
+echo 'XXX';
+
+# $CURRENT_DIR=$PWD
+# cd /app; git config user.name 'XXX'
+# cd /app; git config user.email 'xxx@xxx.com.br'
+# cd $CURRENT_DIR
 
 # https://wime.com.br/2013/06/06/como-adicionar-e-excluir-usuarios-no-ubuntu-12-04-e-centos-6/
         # // $workdir = Register::getInstance()->getParam('defaults', 'workdir');

@@ -41,9 +41,9 @@ abstract class Build
         return implode(PHP_EOL, $this->data); 
     }
 
-    public function save($distiny)
+    public function save($destiny)
     {
-        $filename = $distiny . DIRECTORY_SEPARATOR . $this->getFilename();
+        $filename = $destiny . DIRECTORY_SEPARATOR . $this->getFilename();
         $contents = $this->render();
         path_put_contents($filename, $contents);
     }

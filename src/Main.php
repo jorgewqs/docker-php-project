@@ -12,6 +12,7 @@ $libs = [
     'BuildDockerFile.php',
     'BuildDockerCompose.php',
     'Task.php',
+    'PHP/BuildBoot.php',
     'PHP/BuildDockerFile.php',
     'NGINX/BuildDockerFile.php',
     'MYSQL/BuildDockerFile.php',
@@ -58,6 +59,7 @@ switch($operation) {
     
     case 'bash':
     case 'down':
+    case 'reload':
         break;
 
     default:

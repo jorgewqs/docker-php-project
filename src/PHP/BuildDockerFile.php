@@ -68,6 +68,10 @@ class BuildDockerFile extends \Dpp\BuildDockerFile
 
         $bashrc = __DIR__ . DIRECTORY_SEPARATOR . 'bashrc';
         copy_file($bashrc, $destiny . DIRECTORY_SEPARATOR . 'bashrc');
+
+        (new BuildBoot(null))
+            ->setProjectDir($this->getProjectDir())
+            ->save($this->getProjectDir());
     }
 
     public function getVersionString()
