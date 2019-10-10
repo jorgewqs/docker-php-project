@@ -3,10 +3,15 @@ namespace Dpp;
 
 class SetupConfig
 {
+    private $workDir = null;
+
     private $userConfigDir = null;
 
     public function __construct()
     {
+        // Diretório onde o script está sendo executado
+        $this->workDir = getcwd();
+
         $this->userConfigDir = str_replace("\n", "", command_exec('echo $HOME')) 
                           . DIRECTORY_SEPARATOR 
                           . '.docker-php-project';
@@ -16,7 +21,7 @@ class SetupConfig
     {
         $this->makeConfigDir();
 
-        if ($this->hasConfigurationChanges() == true) {
+        if ($this->hasConfigChanges() == true) {
             cli_step_info('Detectada nova configuração', 'Forçando rebuild');
         } else {
             echo 'no';
@@ -29,41 +34,42 @@ class SetupConfig
             make_dir($this->userConfigDir, 0777, true);
         }
 
-        $configHash = $this->userConfigDir . DIRECTORY_SEPARATOR . 'config-hash';
-        if (! has_file($configHash)) {
-            $hash = $this->getConfigurationHash();
-            path_put_contents($configHash, $hash);
+        $configFile = $this->getConfigHashFile();
+        if (! has_file($configFile)) {
+            path_put_contents($configFile, $this->getConfigHash());
         }
     }
 
-    function hasConfigurationChanges()
+    private function getConfigHashFile()
     {
-        $lastHash = $this->getLastConfigurationHash();
-        $currentHash = $this->getConfigurationHash();
+        return $this->userConfigDir . DIRECTORY_SEPARATOR . 'project-' . md5($this->workDir);
+    }
+
+    function hasConfigChanges()
+    {
+        $lastHash = $this->getLastConfigHash();
+        $currentHash = $this->getConfigHash();
         
         if ($lastHash != $currentHash) {
-            $configHash = $this->userConfigDir . DIRECTORY_SEPARATOR . 'config-hash';
-            path_put_contents($configHash, $currentHash);
+            $configFile = $this->getConfigHashFile();
+            path_put_contents($configFile, $currentHash);
             return true;
         }
         
         return false;
     }
 
-    private function getConfigurationHash()
+    private function getConfigHash()
     {
-        $contents = path_get_contents(getcwd() . '/docker.php');
+        $contents = path_get_contents($this->workDir . '/docker.php');
         return md5($contents);
     }
 
-    function getLastConfigurationHash()
+    function getLastConfigHash()
     {
-        $configHash = $this->userConfigDir . DIRECTORY_SEPARATOR . 'config-hash';
-        return (has_file($configHash))
-            ? path_get_contents($configHash)
+        $configFile = $this->getConfigHashFile();
+        return (has_file($configFile))
+            ? path_get_contents($configFile)
             : null;
     }
-
-
-
 }
