@@ -15,6 +15,9 @@ class BuildDockerCompose extends Build
         $this->add(' ');
 
         $projectDir = path_basename($this->getProjectDir());
+        $userConfigDir = str_replace("\n", "", command_exec('echo $HOME')) 
+                       . DIRECTORY_SEPARATOR 
+                       . '.docker-php-project';
 
         $containers = Register::getInstance()->all();
         foreach($containers as $name => $config) {
@@ -71,7 +74,8 @@ class BuildDockerCompose extends Build
                     $dbpass = $mysql->getParam('pass', 'secret');
                     $rootPass = $mysql->getParam('root-pass', 'secret');
                     $initDb = $mysql->getParam('init-database', 'true');
-                    $initDbPath = $mysql->getParam('init-database-path', 'database');
+                    $initDbPath = $mysql->getParam('init-database-path', 'boot-database');
+                    $dataVolume = $mysql->getParam('data-volume', 'local');
 
                     $this->add('mysql:', 1);
                     $this->add("container_name: {$name}", 2);
@@ -86,6 +90,13 @@ class BuildDockerCompose extends Build
                             $this->add("# qualquer arquivo SQL dentro de /{$initDbPath} será", 3);
                             $this->add("# executado automaticamente na criação do container", 3);
                             $this->add("- ./{$initDbPath}:/docker-entrypoint-initdb.d", 3);
+                        }
+                        if ($dataVolume == 'shared') {
+                            $this->add("# os dados do banco são compartilados com outros projetos", 3);
+                            $this->add("- {$userConfigDir}/volumes/shared/mysql:/var/lib/mysql", 3);
+                        } else {
+                            $this->add("# os dados do banco são exclusivos deste projeto", 3);
+                            $this->add("- {$userConfigDir}/volumes/{$name}/mysql:/var/lib/mysql", 3);
                         }
     
                     $this->add("environment:", 2);

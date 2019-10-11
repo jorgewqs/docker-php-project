@@ -165,7 +165,8 @@ function generate_project_file()
     $contents = str_replace("->param('---name---', 'app')", "->param('name', 'app_{$basename}')", $contents);
     $contents = str_replace("->param('---name---', 'webserver')", "->param('name', 'webserver_{$basename}')", $contents);
     $contents = str_replace("->param('---name---', 'database')", "->param('name', 'database_{$basename}')", $contents);
-    path_put_contents($destiny, $contents);
+    $contents = str_replace("->param('dbname', '---db---')", "->param('db-name', 'db_{$basename}')", $contents);
+    path_put_contents($destiny, $contents); 
 
     if (is_file($destiny)) {
         cli_step_ok('OK', '');

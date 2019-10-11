@@ -36,10 +36,12 @@ class ProjectFactory
             }
 
             // informações para exibir ao usuário
-            $name = $config['params']['name'];
-            $port = $config['params']['port'] ?? null;
-            $containersUp[$name] = [
-                'port' => $port
+            $name   = $config['params']['name'];
+            $port   = $config['params']['port'] ?? null;
+            $volume = $config['params']['data-volume'] ?? null;
+            $containersUp[$name]  = [
+                'port'   => $port,
+                'volume' => $volume
             ];
         }
         
@@ -49,9 +51,10 @@ class ProjectFactory
             ->save(path_dirname($this->projectDir));
 
         foreach($containersUp as $name => $config) {
+            $volume = $config['volume'] ?? '';
             $container = $config['port'] == null 
-                ? "{$name}" 
-                : "{$name}:{$config['port']}";
+                ? "{$name} {$volume}" 
+                : "{$name}:{$config['port']} {$volume}";
             cli_step_info("Conteiner", $container);
         }
 

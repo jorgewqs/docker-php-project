@@ -26,12 +26,13 @@ nginx('1.17')
 mysql('5.7')
     ->param('---name---', 'database')
     ->param('port', 30002)
-    ->param('dbname', 'app_database')
+    ->param('dbname', '---db---')
     ->param('user', 'dbuser')
     ->param('pass', 'secret')
     ->param('root-pass', 'secret')
     ->param('init-database', 'true')
-    ->param('init-database-path', 'database');
+    ->param('init-database-path', 'boot-database')
+    ->param('data-volume', 'local');
 
 task('test')
     ->run('echo "Tarefa executada";');
