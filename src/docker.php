@@ -32,9 +32,5 @@ mysql('5.7')
     ->param('root-pass', 'secret')
     ->param('init-database', 'true')
     ->param('init-database-path', 'boot-database')
-    ->param('data-volume', 'local');
-
-task('test')
-    ->run('echo "Tarefa executada";');
-    
+    ->param('data-volume', 'local');    
     

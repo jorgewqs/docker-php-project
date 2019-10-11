@@ -45,6 +45,18 @@ Para acessar o terminal da aplicação:
 $ php-project bash
 ```
 
+Para acessar o banco de dados mysql:
+
+```sh
+$ php-project mysql
+```
+
+ou 
+
+```sh
+$ php-project mysql-root
+```
+
 ### 2.2. O docker.php
 
 O arquivo **docker.php** é a porta de entrada para uma fácil configuração. Quando um projeto é iniciado,
@@ -74,9 +86,6 @@ mysql('5.7')
     ->param('root-pass', 'secret')
     ->param('init-database', 'true')
     ->param('init-database-path', 'database');
-
-task('test')
-    ->run('echo "Tarefa executada";');
 ```
 
 ### 2.3. As ferramentas disponíveis
@@ -113,3 +122,18 @@ task('permissoes')
     ->run('chmod -Rf 755 /storage')
     ->run('php artisan migrate');
 ```
+
+## 3. Parâmetros disponíveis
+
+Além dos parâmetros padrões, gerados juntamente com o arquivo **docker.php** através do comando **php-project init**,
+existem outros parâmetros úteis para a configuração de um projeto.
+
+* [Parâmetros Globais](docs/globais.md)
+* [PHP 5.6](docs/php56.md)
+* [PHP 7.0](docs/php70.md)
+* [PHP 7.1](docs/php71.md)
+* [PHP 7.2](docs/php72.md)
+* [PHP 7.3](docs/php73.md)
+* [MySQL](docs/mysql.md)
+* [Nginx](docs/nginx.md)
+
