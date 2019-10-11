@@ -26,9 +26,14 @@ check_php_version();
 $operation = $argv[1] ?? null;
 $task      = $argv[2] ?? null;
 
+
+$basename = path_basename(getcwd());
+$basename = str_replace('-', '_', strtolower($basename));
+$basename = preg_replace('[^a-zA-Z0-9\_]', '', $basename);
+
 // seta parâmetros padrões
 set('workdir', '/app');
-set('basename', path_basename(getcwd()));
+set('basename', $basename);
 
 if (in_array($operation, ['up', 'tasks', 'app']) && load_project_file() == false) {
     cli_error('O arquivo "docker.php" não foi encontrado neste diretório' . PHP_EOL);
