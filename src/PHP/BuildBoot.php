@@ -57,6 +57,20 @@ class BuildBoot extends \Dpp\Build
         $this->add("CURR_GROUP_NAME=$(stat -c '%G' .);");
 
         $this->add(' ');
+        $this->add("# Se o ID do usuário já existir, muda o existente");
+
+        $this->add("SRV_USER_ID=$(id -u www-data);");
+        $this->add("SRV_GROUP_ID=$(id -g www-data);");
+
+        $this->add('if [ "$SRV_USER_ID" = "$REAL_USER_ID" ]; then');
+        $this->add('usermod -u 33 www-data', 1);
+        $this->add('fi');
+
+        $this->add('if [ "$SRV_GROUP_ID" = "$REAL_GROUP_ID" ]; then');
+        $this->add('groupmod -g 33 www-data', 1);$this->add('usermod -u 33 www-data', 1);
+        $this->add('fi');
+
+        $this->add(' ');
         $this->add("# Cria o usuário local dentro do conteiner se este não existir");
 
         // Grupo
