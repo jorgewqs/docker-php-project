@@ -204,6 +204,10 @@ function show_help()
     cli_out(PHP_EOL);
     cli_out( cli_color('green', "  down      ") . "Para a execução dos contaners" );
     cli_out(PHP_EOL);
+    cli_out( cli_color('green', "  bash      ") . "Para entrar no terminal da aplicação" );
+    cli_out(PHP_EOL);
+    cli_out( cli_color('green', "  mysql      ") . "Para entrar no banco de dados" );
+    cli_out(PHP_EOL);
 }
 
 function set($param, $value)
