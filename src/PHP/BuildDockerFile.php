@@ -31,12 +31,12 @@ class BuildDockerFile extends \Dpp\BuildDockerFile
         $this->add('RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 4F4EA0AAE5267A6C;');  
         */
 
+        $this->add('ENV LAST_UPDATED ' . date('Y-m-d H:m:s'));  
         $this->add('RUN apt-get update;');  
-        $this->add('RUN apt-get -y --no-install-recommends install ca-certificates curl unzip;');  
 
         $this->addSeparator('PHP');
         $packages = implode(' ', $this->getPackages());
-        $this->add("RUN apt-get -y --no-install-recommends install $packages;");  
+        $this->add("RUN apt-get -y --no-install-recommends install ca-certificates curl unzip $packages;");  
 
         $this->addSeparator('Ferramentas adicionais');
         $this->insertTools();
